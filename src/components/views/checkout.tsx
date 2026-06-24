@@ -126,15 +126,15 @@ function CheckoutForm({
       <Button variant="ghost" size="sm" className="mb-4" onClick={() => navigate("cart")}>
         <ArrowLeft className="size-4" /> Back to cart
       </Button>
-      <h1 className="mb-6 text-3xl font-bold tracking-tight">Checkout</h1>
+      <h1 className="display mb-8 text-4xl tracking-tight md:text-5xl">Checkout</h1>
 
       <div className="grid gap-8 lg:grid-cols-3">
         <div className="space-y-8 lg:col-span-2">
           {/* Contact */}
-          <section className="rounded-2xl border bg-card p-6">
-            <h2 className="mb-4 flex items-center gap-2 text-lg font-semibold">
-              <span className="grid size-6 place-items-center rounded-full bg-primary text-xs font-bold text-primary-foreground">1</span>
-              Contact Information
+          <section className="rounded-sm border bg-card p-6">
+            <h2 className="mb-5 flex items-center gap-2 text-lg font-semibold">
+              <span className="grid size-6 place-items-center rounded-full bg-foreground text-xs font-bold text-background">1</span>
+              <span className="display">Contact Information</span>
             </h2>
             <div className="grid gap-4 sm:grid-cols-2">
               <Field label="Full Name" error={errors.customerName}>
@@ -150,10 +150,10 @@ function CheckoutForm({
           </section>
 
           {/* Shipping */}
-          <section className="rounded-2xl border bg-card p-6">
-            <h2 className="mb-4 flex items-center gap-2 text-lg font-semibold">
-              <span className="grid size-6 place-items-center rounded-full bg-primary text-xs font-bold text-primary-foreground">2</span>
-              Shipping Address
+          <section className="rounded-sm border bg-card p-6">
+            <h2 className="mb-5 flex items-center gap-2 text-lg font-semibold">
+              <span className="grid size-6 place-items-center rounded-full bg-foreground text-xs font-bold text-background">2</span>
+              <span className="display">Shipping Address</span>
             </h2>
             <div className="grid gap-4 sm:grid-cols-2">
               <div className="sm:col-span-2">
@@ -179,23 +179,23 @@ function CheckoutForm({
           </section>
 
           {/* Payment */}
-          <section className="rounded-2xl border bg-card p-6">
-            <h2 className="mb-4 flex items-center gap-2 text-lg font-semibold">
-              <span className="grid size-6 place-items-center rounded-full bg-primary text-xs font-bold text-primary-foreground">3</span>
-              Payment Method
+          <section className="rounded-sm border bg-card p-6">
+            <h2 className="mb-5 flex items-center gap-2 text-lg font-semibold">
+              <span className="grid size-6 place-items-center rounded-full bg-foreground text-xs font-bold text-background">3</span>
+              <span className="display">Payment Method</span>
             </h2>
             <RadioGroup value={payment} onValueChange={setPayment} className="grid gap-3">
-              <label className={cn("flex cursor-pointer items-center gap-3 rounded-xl border p-4 transition-all", payment === "COD" && "border-primary bg-primary/5")}>
+              <label className={cn("flex cursor-pointer items-center gap-3 rounded-sm border p-4 transition-all", payment === "COD" && "border-foreground bg-foreground/5")}>
                 <RadioGroupItem value="COD" />
-                <Banknote className="size-5 text-primary" />
+                <Banknote className="size-5 text-accent" />
                 <div>
                   <p className="text-sm font-medium">Cash on Delivery</p>
                   <p className="text-xs text-muted-foreground">Pay when you receive your order</p>
                 </div>
               </label>
-              <label className={cn("flex cursor-pointer items-center gap-3 rounded-xl border p-4 transition-all", payment === "CARD" && "border-primary bg-primary/5")}>
+              <label className={cn("flex cursor-pointer items-center gap-3 rounded-sm border p-4 transition-all", payment === "CARD" && "border-foreground bg-foreground/5")}>
                 <RadioGroupItem value="CARD" />
-                <CreditCard className="size-5 text-primary" />
+                <CreditCard className="size-5 text-accent" />
                 <div>
                   <p className="text-sm font-medium">Credit / Debit Card</p>
                   <p className="text-xs text-muted-foreground">Secure test payment (no real charge)</p>
@@ -204,7 +204,7 @@ function CheckoutForm({
             </RadioGroup>
 
             {payment === "CARD" && (
-              <div className="mt-4 grid gap-4 rounded-xl bg-muted/40 p-4 sm:grid-cols-2">
+              <div className="mt-4 grid gap-4 rounded-sm bg-muted/40 p-4 sm:grid-cols-2">
                 <div className="sm:col-span-2">
                   <Field label="Card Number" error={errors.cardNumber}>
                     <Input
@@ -236,8 +236,8 @@ function CheckoutForm({
 
         {/* Summary */}
         <div className="lg:col-span-1">
-          <div className="sticky top-28 rounded-2xl border bg-card p-6">
-            <h2 className="text-lg font-bold">Order Summary</h2>
+          <div className="sticky top-28 rounded-sm border bg-card p-6">
+            <h2 className="display text-lg font-semibold">Order Summary</h2>
             <div className="mt-4 max-h-72 space-y-3 overflow-y-auto scrollbar-thin pr-1">
               {items.map((item) => (
                 <div key={item.productId} className="flex gap-3">
@@ -269,7 +269,7 @@ function CheckoutForm({
             <Separator className="my-4" />
             <div className="flex items-center justify-between">
               <span className="font-semibold">Total</span>
-              <span className="text-xl font-bold">{formatPrice(total)}</span>
+              <span className="display text-xl">{formatPrice(total)}</span>
             </div>
             <Button
               size="lg"

@@ -25,7 +25,7 @@ export function AdminCustomers({ navigate }: { navigate: Navigate }) {
   return (
     <div>
       <div className="mb-6">
-        <h1 className="text-2xl font-bold tracking-tight">Customers</h1>
+        <h1 className="display text-3xl tracking-tight">Customers</h1>
         <p className="text-sm text-muted-foreground">{customers?.length || 0} registered customers</p>
       </div>
 
@@ -36,19 +36,19 @@ export function AdminCustomers({ navigate }: { navigate: Navigate }) {
 
       {isLoading ? (
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {Array.from({ length: 6 }).map((_, i) => <Skeleton key={i} className="h-40 rounded-2xl" />)}
+          {Array.from({ length: 6 }).map((_, i) => <Skeleton key={i} className="h-40 rounded-sm" />)}
         </div>
       ) : filtered.length === 0 ? (
-        <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed py-16 text-center">
+        <div className="flex flex-col items-center justify-center rounded-sm border border-dashed py-16 text-center">
           <Users className="size-10 text-muted-foreground/50" />
           <p className="mt-4 font-semibold">No customers found</p>
         </div>
       ) : (
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {filtered.map((c) => (
-            <div key={c.id} className="rounded-2xl border bg-card p-5">
+            <div key={c.id} className="rounded-sm border bg-card p-5">
               <div className="flex items-center gap-3">
-                <div className="grid size-12 place-items-center rounded-2xl bg-primary/10 text-lg font-bold text-primary">
+                <div className="grid size-12 place-items-center rounded-sm bg-foreground/5 text-lg font-bold text-foreground">
                   {c.name.slice(0, 2).toUpperCase()}
                 </div>
                 <div className="min-w-0 flex-1">

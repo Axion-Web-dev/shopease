@@ -42,11 +42,11 @@ export function AccountView({ navigate }: { navigate: Navigate }) {
     <div className="animate-fade-in-up mx-auto max-w-5xl px-4 py-8">
       <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
         <div className="flex items-center gap-4">
-          <div className="grid size-16 place-items-center rounded-2xl bg-primary/10 text-2xl font-bold text-primary">
+          <div className="grid size-16 place-items-center rounded-sm bg-foreground/5 text-2xl font-bold text-foreground">
             {user.name.slice(0, 2).toUpperCase()}
           </div>
           <div>
-            <h1 className="text-2xl font-bold tracking-tight">{user.name}</h1>
+            <h1 className="display text-3xl tracking-tight">{user.name}</h1>
             <p className="text-sm text-muted-foreground">{user.email}</p>
           </div>
         </div>
@@ -57,35 +57,35 @@ export function AccountView({ navigate }: { navigate: Navigate }) {
 
       {/* Stats */}
       <div className="mb-8 grid grid-cols-2 gap-4 md:grid-cols-3">
-        <div className="rounded-2xl border bg-card p-5">
+        <div className="rounded-sm border bg-card p-5">
           <div className="flex items-center gap-3">
-            <span className="grid size-10 place-items-center rounded-xl bg-primary/10 text-primary">
+            <span className="grid size-10 place-items-center rounded-sm bg-foreground/5 text-foreground">
               <Package className="size-5" />
             </span>
             <div>
-              <p className="text-2xl font-bold">{orders?.length || 0}</p>
+              <p className="font-display text-2xl">{orders?.length || 0}</p>
               <p className="text-xs text-muted-foreground">Total orders</p>
             </div>
           </div>
         </div>
-        <div className="rounded-2xl border bg-card p-5">
+        <div className="rounded-sm border bg-card p-5">
           <div className="flex items-center gap-3">
-            <span className="grid size-10 place-items-center rounded-xl bg-emerald-500/10 text-emerald-600">
+            <span className="grid size-10 place-items-center rounded-sm bg-foreground/5 text-foreground">
               <Wallet className="size-5" />
             </span>
             <div>
-              <p className="text-2xl font-bold">{formatPrice(totalSpent)}</p>
+              <p className="font-display text-2xl">{formatPrice(totalSpent)}</p>
               <p className="text-xs text-muted-foreground">Total spent</p>
             </div>
           </div>
         </div>
-        <div className="rounded-2xl border bg-card p-5 col-span-2 md:col-span-1">
+        <div className="rounded-sm border bg-card p-5 col-span-2 md:col-span-1">
           <div className="flex items-center gap-3">
-            <span className="grid size-10 place-items-center rounded-xl bg-amber-500/10 text-amber-600">
+            <span className="grid size-10 place-items-center rounded-sm bg-foreground/5 text-foreground">
               <User className="size-5" />
             </span>
             <div>
-              <p className="text-sm font-bold capitalize">{user.role.toLowerCase()}</p>
+              <p className="font-display text-base capitalize">{user.role.toLowerCase()}</p>
               <p className="text-xs text-muted-foreground">Account type</p>
             </div>
           </div>
@@ -100,8 +100,8 @@ export function AccountView({ navigate }: { navigate: Navigate }) {
 
         {/* Quick links */}
         <div className="space-y-4">
-          <div className="rounded-2xl border bg-card p-5">
-            <h3 className="text-sm font-semibold">Quick Actions</h3>
+          <div className="rounded-sm border bg-card p-5">
+            <h3 className="text-[11px] font-semibold uppercase tracking-luxe text-muted-foreground">Quick Actions</h3>
             <div className="mt-3 flex flex-col gap-2">
               <Button variant="outline" className="justify-start" onClick={() => navigate("orders")}>
                 <Package className="size-4" /> View my orders
@@ -145,8 +145,8 @@ function ProfileForm({ user }: { user: UserType }) {
   };
 
   return (
-    <div className="rounded-2xl border bg-card p-6">
-      <h2 className="text-lg font-semibold">Profile Information</h2>
+    <div className="rounded-sm border bg-card p-6">
+      <h2 className="display text-2xl font-semibold">Profile Information</h2>
       <p className="mt-1 text-sm text-muted-foreground">Update your personal details and shipping address.</p>
       <Separator className="my-5" />
       <div className="grid gap-4 sm:grid-cols-2">

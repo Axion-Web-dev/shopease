@@ -34,7 +34,7 @@ export function OrdersView({ navigate }: { navigate: Navigate }) {
     <div className="animate-fade-in-up mx-auto max-w-5xl px-4 py-8">
       <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">My Orders</h1>
+          <h1 className="display text-4xl tracking-tight">My Orders</h1>
           <p className="mt-1 text-sm text-muted-foreground">Track and manage your purchases</p>
         </div>
         <Select value={status} onValueChange={setStatus}>
@@ -54,7 +54,7 @@ export function OrdersView({ navigate }: { navigate: Navigate }) {
       {isLoading ? (
         <div className="space-y-4">
           {Array.from({ length: 3 }).map((_, i) => (
-            <Skeleton key={i} className="h-32 rounded-2xl" />
+            <Skeleton key={i} className="h-32 rounded-sm" />
           ))}
         </div>
       ) : orders && orders.length > 0 ? (
@@ -63,18 +63,18 @@ export function OrdersView({ navigate }: { navigate: Navigate }) {
             <button
               key={order.id}
               onClick={() => navigate("order", { id: order.id })}
-              className="group block w-full overflow-hidden rounded-2xl border bg-card text-left transition-all hover:shadow-md"
+              className="group block w-full overflow-hidden rounded-sm border bg-card text-left transition-all hover:shadow-md"
             >
               <div className="flex flex-col gap-4 p-5 sm:flex-row sm:items-center sm:justify-between">
                 <div className="flex items-center gap-4">
                   <div className="flex -space-x-3">
                     {order.items.slice(0, 3).map((item, i) => (
-                      <div key={i} className="relative size-12 overflow-hidden rounded-xl border-2 border-background bg-muted">
+                      <div key={i} className="relative size-12 overflow-hidden rounded-sm border-2 border-background bg-muted">
                         <img src={item.image} alt="" className="size-full object-cover" />
                       </div>
                     ))}
                     {order.items.length > 3 && (
-                      <div className="grid size-12 place-items-center rounded-xl border-2 border-background bg-muted text-xs font-medium">
+                      <div className="grid size-12 place-items-center rounded-sm border-2 border-background bg-muted text-xs font-medium">
                         +{order.items.length - 3}
                       </div>
                     )}
@@ -101,7 +101,7 @@ export function OrdersView({ navigate }: { navigate: Navigate }) {
           ))}
         </div>
       ) : (
-        <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed py-20 text-center">
+        <div className="flex flex-col items-center justify-center rounded-sm border border-dashed py-20 text-center">
           <Package className="size-10 text-muted-foreground/50" />
           <p className="mt-4 font-semibold">No orders yet</p>
           <p className="mt-1 text-sm text-muted-foreground">When you place an order, it'll appear here.</p>

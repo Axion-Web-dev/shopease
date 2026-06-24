@@ -1,14 +1,12 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Link from "next/link";
-import { ShoppingBag, Search, Menu, X, User, Package, LayoutDashboard, LogOut, Heart, Truck, ShieldCheck } from "lucide-react";
+import { ShoppingBag, Search, Menu, X, User, Package, LayoutDashboard, LogOut, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetClose } from "@/components/ui/sheet";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, DropdownMenuLabel } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
 import { useCart } from "@/store/cart";
 import { useAuth } from "@/store/auth";
 import { useCategories } from "@/components/site/hooks";
@@ -43,29 +41,9 @@ export function Header({ navigate, view }: { navigate: Navigate; view: View }) {
     navigate("home");
   };
 
-  const navItem = (label: string, target: View, params?: Record<string, string | undefined>) => (
-    <button
-      onClick={() => navigate(target, params)}
-      className={`text-sm font-medium transition-colors hover:text-primary ${
-        view === target ? "text-primary" : "text-foreground/70"
-      }`}
-    >
-      {label}
-    </button>
-  );
-
   return (
-    <header className={`sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-xl transition-shadow ${scrolled ? "shadow-sm" : ""}`}>
-      {/* Announcement bar */}
-      <div className="bg-primary text-primary-foreground text-xs">
-        <div className="mx-auto flex max-w-7xl items-center justify-center gap-6 px-4 py-1.5 overflow-hidden">
-          <span className="flex items-center gap-1.5"><Truck className="size-3.5" /> Free shipping over $100</span>
-          <span className="hidden sm:flex items-center gap-1.5"><ShieldCheck className="size-3.5" /> 30-day easy returns</span>
-          <span className="hidden md:flex items-center gap-1.5"><Heart className="size-3.5" /> Shop the season's favorites</span>
-        </div>
-      </div>
-
-      <div className="mx-auto flex h-16 max-w-7xl items-center gap-4 px-4">
+    <header className={`sticky top-0 z-50 w-full border-b border-border/60 bg-background/85 backdrop-blur-xl transition-shadow ${scrolled ? "shadow-sm" : ""}`}>
+      <div className="mx-auto flex h-16 max-w-7xl items-center gap-4 px-4 md:h-[68px]">
         {/* Mobile menu */}
         <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
           <SheetTrigger asChild>
@@ -77,53 +55,50 @@ export function Header({ navigate, view }: { navigate: Navigate; view: View }) {
           <SheetContent side="left" className="w-72 p-0">
             <SheetTitle className="sr-only">Navigation</SheetTitle>
             <div className="flex h-full flex-col">
-              <div className="flex items-center justify-between border-b px-4 py-4">
-                <button onClick={() => { navigate("home"); setMobileOpen(false); }} className="flex items-center gap-2 font-bold text-lg">
-                  <span className="grid size-8 place-items-center rounded-lg bg-primary text-primary-foreground">
-                    <ShoppingBag className="size-4" />
-                  </span>
+              <div className="flex items-center justify-between border-b px-5 py-4">
+                <button onClick={() => { navigate("home"); setMobileOpen(false); }} className="font-display text-xl">
                   ShopEase
                 </button>
                 <SheetClose asChild>
                   <Button variant="ghost" size="icon"><X className="size-5" /></Button>
                 </SheetClose>
               </div>
-              <nav className="flex flex-col gap-1 p-4">
-                <Button variant="ghost" className="justify-start" onClick={() => { navigate("home"); setMobileOpen(false); }}>Home</Button>
-                <Button variant="ghost" className="justify-start" onClick={() => { navigate("shop"); setMobileOpen(false); }}>Shop All</Button>
+              <nav className="flex flex-col gap-0.5 p-4">
+                <button onClick={() => { navigate("home"); setMobileOpen(false); }} className="rounded-sm px-3 py-2.5 text-left text-sm font-medium hover:bg-accent/10">Home</button>
+                <button onClick={() => { navigate("shop"); setMobileOpen(false); }} className="rounded-sm px-3 py-2.5 text-left text-sm font-medium hover:bg-accent/10">Shop All</button>
+                <p className="px-3 pt-4 pb-1 text-[11px] uppercase tracking-luxe text-muted-foreground">Categories</p>
                 {(categories || []).map((c) => (
-                  <Button key={c.id} variant="ghost" className="justify-start" onClick={() => { navigate("shop", { category: c.slug }); setMobileOpen(false); }}>
+                  <button key={c.id} className="rounded-sm px-3 py-2.5 text-left text-sm hover:bg-accent/10" onClick={() => { navigate("shop", { category: c.slug }); setMobileOpen(false); }}>
                     {c.name}
-                  </Button>
+                  </button>
                 ))}
-                {user && <Button variant="ghost" className="justify-start" onClick={() => { navigate("orders"); setMobileOpen(false); }}>My Orders</Button>}
-                {user?.role === "ADMIN" && <Button variant="ghost" className="justify-start" onClick={() => { navigate("admin"); setMobileOpen(false); }}>Admin Dashboard</Button>}
+                {user && <button className="mt-4 rounded-sm px-3 py-2.5 text-left text-sm font-medium hover:bg-accent/10" onClick={() => { navigate("orders"); setMobileOpen(false); }}>My Orders</button>}
+                {user?.role === "ADMIN" && <button className="rounded-sm px-3 py-2.5 text-left text-sm font-medium hover:bg-accent/10" onClick={() => { navigate("admin"); setMobileOpen(false); }}>Admin Dashboard</button>}
               </nav>
             </div>
           </SheetContent>
         </Sheet>
 
         {/* Logo */}
-        <button onClick={() => navigate("home")} className="flex shrink-0 items-center gap-2">
-          <span className="grid size-9 place-items-center rounded-xl bg-primary text-primary-foreground shadow-sm">
-            <ShoppingBag className="size-5" />
-          </span>
-          <span className="text-xl font-bold tracking-tight">ShopEase</span>
+        <button onClick={() => navigate("home")} className="shrink-0">
+          <span className="font-display text-2xl tracking-tight">ShopEase</span>
         </button>
 
         {/* Desktop nav */}
-        <nav className="hidden md:flex items-center gap-6 ml-2">
-          {navItem("Home", "home")}
-          {navItem("Shop", "shop")}
+        <nav className="hidden items-center gap-7 md:flex md:ml-4">
+          <button
+            onClick={() => navigate("shop")}
+            className={`text-[13px] font-medium uppercase tracking-luxe transition-colors hover:text-accent ${view === "shop" ? "text-accent" : "text-foreground/80"}`}
+          >
+            Shop
+          </button>
           <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <button className="text-sm font-medium text-foreground/70 transition-colors hover:text-primary flex items-center gap-1">
-                Categories
-              </button>
+            <DropdownMenuTrigger className="flex items-center gap-1 text-[13px] font-medium uppercase tracking-luxe text-foreground/80 transition-colors hover:text-accent">
+              Collections <ChevronDown className="size-3.5" />
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="start" className="w-52">
+            <DropdownMenuContent align="start" className="w-56 rounded-sm border-border/60 p-1">
               {(categories || []).map((c) => (
-                <DropdownMenuItem key={c.id} onClick={() => navigate("shop", { category: c.slug })}>
+                <DropdownMenuItem key={c.id} onClick={() => navigate("shop", { category: c.slug })} className="rounded-sm px-3 py-2 text-sm">
                   {c.name}
                 </DropdownMenuItem>
               ))}
@@ -132,87 +107,86 @@ export function Header({ navigate, view }: { navigate: Navigate; view: View }) {
         </nav>
 
         {/* Search */}
-        <form onSubmit={onSearch} className="ml-auto hidden flex-1 max-w-sm lg:flex">
+        <form onSubmit={onSearch} className="ml-auto hidden flex-1 max-w-xs lg:flex">
           <div className="relative w-full">
-            <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+            <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" strokeWidth={1.5} />
             <Input
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              placeholder="Search products..."
-              className="pl-9 h-10 bg-muted/50 border-transparent focus-visible:border-ring focus-visible:bg-background"
+              placeholder="Search products"
+              className="h-9 rounded-none border-transparent bg-muted/50 pl-9 text-sm focus-visible:border-foreground focus-visible:bg-background"
             />
           </div>
         </form>
 
         {/* Actions */}
         <div className="ml-auto flex items-center gap-1 lg:ml-2">
-          {/* User */}
           {user ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" size="icon" className="rounded-full">
-                  <Avatar className="size-8 border">
-                    <AvatarFallback className="bg-primary/10 text-primary text-xs font-semibold">
+                  <Avatar className="size-8">
+                    <AvatarFallback className="bg-transparent text-xs font-medium text-foreground">
                       {user.name.slice(0, 2).toUpperCase()}
                     </AvatarFallback>
                   </Avatar>
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-56">
-                <DropdownMenuLabel>
+              <DropdownMenuContent align="end" className="w-56 rounded-sm border-border/60 p-1">
+                <DropdownMenuLabel className="px-3 py-2">
                   <div className="flex flex-col">
-                    <span className="font-medium">{user.name}</span>
+                    <span className="font-medium text-sm">{user.name}</span>
                     <span className="text-xs text-muted-foreground font-normal">{user.email}</span>
                   </div>
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={() => navigate("account")}>
+                <DropdownMenuItem className="rounded-sm" onClick={() => navigate("account")}>
                   <User className="mr-2 size-4" /> My Account
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => navigate("orders")}>
+                <DropdownMenuItem className="rounded-sm" onClick={() => navigate("orders")}>
                   <Package className="mr-2 size-4" /> My Orders
                 </DropdownMenuItem>
                 {user.role === "ADMIN" && (
                   <>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem onClick={() => navigate("admin")}>
+                    <DropdownMenuItem className="rounded-sm" onClick={() => navigate("admin")}>
                       <LayoutDashboard className="mr-2 size-4" /> Admin Dashboard
                     </DropdownMenuItem>
                   </>
                 )}
                 <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={handleLogout} className="text-destructive focus:text-destructive">
+                <DropdownMenuItem className="rounded-sm text-destructive focus:text-destructive" onClick={handleLogout}>
                   <LogOut className="mr-2 size-4" /> Sign out
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           ) : (
-            <Button variant="ghost" size="sm" onClick={() => navigate("login")} className="hidden sm:flex">
-              <User className="size-4" /> Sign in
+            <Button variant="ghost" size="sm" onClick={() => navigate("login")} className="hidden text-[13px] font-medium uppercase tracking-luxe sm:flex">
+              Sign in
             </Button>
           )}
 
           {/* Cart */}
           <Button variant="ghost" size="icon" className="relative rounded-full" onClick={() => setOpen(true)}>
-            <ShoppingBag className="size-5" />
+            <ShoppingBag className="size-5" strokeWidth={1.5} />
             {count > 0 && (
-              <Badge className="absolute -right-0.5 -top-0.5 size-5 rounded-full p-0 text-[10px] tabular-nums bg-primary text-primary-foreground">
+              <span className="absolute -right-0.5 -top-0.5 grid size-4 place-items-center rounded-full bg-accent text-[10px] font-medium text-accent-foreground">
                 {count}
-              </Badge>
+              </span>
             )}
           </Button>
         </div>
       </div>
 
-      {/* Mobile search row */}
-      <form onSubmit={onSearch} className="lg:hidden border-t px-4 py-2">
+      {/* Mobile search */}
+      <form onSubmit={onSearch} className="border-t border-border/60 px-4 py-2 lg:hidden">
         <div className="relative">
-          <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+          <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" strokeWidth={1.5} />
           <Input
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder="Search products..."
-            className="pl-9 h-9 bg-muted/50 border-transparent"
+            placeholder="Search products"
+            className="h-9 rounded-none border-transparent bg-muted/50 pl-9 text-sm"
           />
         </div>
       </form>

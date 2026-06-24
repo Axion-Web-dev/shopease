@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowRight, Star, Quote, Sparkles, TrendingUp } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Star, Quote, Truck, RotateCcw, ShieldCheck, Headphones } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ProductCard } from "@/components/site/product-card";
@@ -14,157 +14,187 @@ export function HomeView({ navigate }: { navigate: Navigate }) {
   const { data: categories } = useCategories();
 
   return (
-    <div className="animate-fade-in-up">
-      {/* Hero */}
-      <section className="relative overflow-hidden border-b bg-gradient-to-br from-primary/10 via-background to-accent/40">
-        <div className="absolute inset-0 -z-10 opacity-60">
-          <div className="absolute -left-20 top-10 size-72 rounded-full bg-primary/20 blur-3xl" />
-          <div className="absolute right-0 top-40 size-96 rounded-full bg-accent/50 blur-3xl" />
-        </div>
-        <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 py-16 md:grid-cols-2 md:py-24">
-          <div>
-            <span className="inline-flex items-center gap-1.5 rounded-full border bg-background/70 px-3 py-1 text-xs font-medium backdrop-blur">
-              <Sparkles className="size-3.5 text-primary" /> New season collection — up to 30% off
-            </span>
-            <h1 className="mt-5 text-balance text-4xl font-bold leading-tight tracking-tight md:text-6xl">
-              Style that moves <span className="text-primary">with you</span>
-            </h1>
-            <p className="mt-5 max-w-md text-balance text-base text-muted-foreground md:text-lg">
-              Discover thoughtfully curated fashion, electronics, and home essentials.
-              Premium quality, fair prices, and a checkout you&apos;ll actually enjoy.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Button size="lg" onClick={() => navigate("shop")} className="h-12 px-7 text-base">
-                Shop Now <ArrowRight className="size-4" />
-              </Button>
-              <Button size="lg" variant="outline" onClick={() => navigate("shop", { category: "fashion" })} className="h-12 px-7 text-base">
-                Explore Fashion
-              </Button>
-            </div>
-            <div className="mt-10 flex items-center gap-6">
-              <div>
-                <p className="text-2xl font-bold">10k+</p>
-                <p className="text-xs text-muted-foreground">Happy customers</p>
-              </div>
-              <div className="h-10 w-px bg-border" />
-              <div>
-                <p className="text-2xl font-bold">500+</p>
-                <p className="text-xs text-muted-foreground">Products</p>
-              </div>
-              <div className="h-10 w-px bg-border" />
-              <div>
-                <div className="flex items-center gap-1">
-                  <p className="text-2xl font-bold">4.8</p>
-                  <Star className="size-4 fill-amber-400 text-amber-400" />
+    <div>
+      {/* ============ Full-bleed editorial hero ============ */}
+      <section className="relative">
+        <div className="relative h-[78vh] min-h-[520px] w-full overflow-hidden">
+          <img src="/hero.png" alt="ShopEase collection" className="size-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/15 to-black/25" />
+          <div className="absolute inset-0 flex items-end">
+            <div className="mx-auto w-full max-w-7xl px-4 pb-14 md:pb-20">
+              <div className="max-w-xl text-white">
+                <p className="text-[11px] uppercase tracking-luxe text-white/80">
+                  Autumn / Winter 2025
+                </p>
+                <h1 className="display mt-4 text-balance text-5xl leading-[1.05] md:text-7xl">
+                  Considered goods for considered living
+                </h1>
+                <p className="mt-5 max-w-md text-balance text-base text-white/85 md:text-lg">
+                  A curated edit of fashion, electronics, and home essentials —
+                  designed to last, priced to be fair.
+                </p>
+                <div className="mt-8 flex flex-wrap items-center gap-3">
+                  <Button
+                    size="lg"
+                    onClick={() => navigate("shop")}
+                    className="h-12 rounded-none border border-white bg-white px-8 text-base text-foreground hover:bg-white/90"
+                  >
+                    Shop the edit
+                    <ArrowRight className="size-4" />
+                  </Button>
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    onClick={() => navigate("shop", { category: "fashion" })}
+                    className="h-12 rounded-none border-white/70 bg-transparent px-8 text-base text-white hover:bg-white/10 hover:text-white"
+                  >
+                    Fashion
+                  </Button>
                 </div>
-                <p className="text-xs text-muted-foreground">Avg rating</p>
               </div>
             </div>
           </div>
-          <div className="relative">
-            <div className="relative overflow-hidden rounded-3xl border bg-card shadow-xl">
-              <img src="/hero.png" alt="ShopEase collection" className="aspect-[16/10] w-full object-cover" />
-            </div>
-            <div className="absolute -bottom-5 -left-5 hidden rounded-2xl border bg-background/95 p-4 shadow-lg backdrop-blur sm:block">
-              <div className="flex items-center gap-3">
-                <span className="grid size-10 place-items-center rounded-xl bg-primary/10 text-primary">
-                  <TrendingUp className="size-5" />
-                </span>
+        </div>
+        {/* Trust strip */}
+        <div className="border-y bg-background">
+          <div className="mx-auto grid max-w-7xl grid-cols-2 divide-x md:grid-cols-4">
+            {[
+              { icon: Truck, title: "Free shipping", desc: "On orders over $100" },
+              { icon: RotateCcw, title: "30-day returns", desc: "Easy & free" },
+              { icon: ShieldCheck, title: "Secure checkout", desc: "SSL encrypted" },
+              { icon: Headphones, title: "24/7 support", desc: "Always here" },
+            ].map((f) => (
+              <div key={f.title} className="flex items-center gap-3 px-4 py-5 md:px-6">
+                <f.icon className="size-5 shrink-0 text-accent" strokeWidth={1.5} />
                 <div>
-                  <p className="text-sm font-semibold">Free shipping</p>
-                  <p className="text-xs text-muted-foreground">On orders over $100</p>
+                  <p className="text-[13px] font-medium">{f.title}</p>
+                  <p className="text-xs text-muted-foreground">{f.desc}</p>
                 </div>
               </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Categories */}
-      <section className="mx-auto max-w-7xl px-4 py-16">
-        <div className="mb-8 flex items-end justify-between">
+      {/* ============ Categories — editorial grid ============ */}
+      <section className="mx-auto max-w-7xl px-4 py-20 md:py-28">
+        <div className="mb-10 flex items-end justify-between gap-4">
           <div>
-            <p className="text-sm font-medium text-primary">Browse by category</p>
-            <h2 className="mt-1 text-2xl font-bold tracking-tight md:text-3xl">Shop Categories</h2>
+            <p className="text-[11px] uppercase tracking-luxe text-accent">Browse</p>
+            <h2 className="display mt-2 text-3xl md:text-4xl">Shop by category</h2>
           </div>
-          <Button variant="ghost" onClick={() => navigate("shop")} className="hidden sm:flex">
-            View all <ArrowRight className="size-4" />
-          </Button>
+          <button
+            onClick={() => navigate("shop")}
+            className="group hidden items-center gap-1.5 text-sm font-medium text-foreground hover:text-accent sm:flex"
+          >
+            View all
+            <ArrowUpRight className="size-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+          </button>
         </div>
-        <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
-          {(categories || []).map((c) => (
+        <div className="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-5">
+          {(categories || []).map((c, i) => (
             <button
               key={c.id}
               onClick={() => navigate("shop", { category: c.slug })}
-              className="group relative overflow-hidden rounded-2xl border bg-card text-left transition-all hover:shadow-lg hover:-translate-y-0.5"
+              className="group relative overflow-hidden rounded-sm bg-secondary text-left"
+              style={{ aspectRatio: i % 2 === 0 ? "3/4" : "3/4" }}
             >
-              <div className="aspect-[4/5] overflow-hidden bg-muted">
-                <img src={c.image || ""} alt={c.name} className="size-full object-cover transition-transform duration-500 group-hover:scale-105" />
-              </div>
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
-              <div className="absolute bottom-0 left-0 p-4 text-white">
-                <h3 className="text-lg font-bold">{c.name}</h3>
-                <p className="text-xs text-white/80">{c._count?.products || 0} products</p>
+              <img
+                src={c.image || ""}
+                alt={c.name}
+                className="size-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-transparent to-transparent" />
+              <div className="absolute bottom-0 left-0 p-5 text-white">
+                <h3 className="font-display text-xl md:text-2xl">{c.name}</h3>
+                <p className="mt-0.5 text-xs text-white/80">{c._count?.products || 0} pieces</p>
+                <span className="mt-2 inline-flex items-center gap-1 text-xs text-white/90 opacity-0 transition-opacity group-hover:opacity-100">
+                  Discover <ArrowRight className="size-3" />
+                </span>
               </div>
             </button>
           ))}
-          {!categories &&
-            Array.from({ length: 4 }).map((_, i) => <Skeleton key={i} className="aspect-[4/5] rounded-2xl" />)}
+          {!categories && Array.from({ length: 4 }).map((_, i) => (
+            <Skeleton key={i} className="aspect-[3/4] rounded-sm" />
+          ))}
         </div>
       </section>
 
-      {/* Featured products */}
-      <section className="bg-muted/30 border-y">
-        <div className="mx-auto max-w-7xl px-4 py-16">
-          <div className="mb-8 flex items-end justify-between">
+      {/* ============ Featured products ============ */}
+      <section className="border-y bg-secondary/40">
+        <div className="mx-auto max-w-7xl px-4 py-20 md:py-28">
+          <div className="mb-10 flex items-end justify-between gap-4">
             <div>
-              <p className="text-sm font-medium text-primary">Handpicked for you</p>
-              <h2 className="mt-1 text-2xl font-bold tracking-tight md:text-3xl">Featured Products</h2>
+              <p className="text-[11px] uppercase tracking-luxe text-accent">Handpicked</p>
+              <h2 className="display mt-2 text-3xl md:text-4xl">Featured pieces</h2>
             </div>
-            <Button variant="ghost" onClick={() => navigate("shop")} className="hidden sm:flex">
-              View all <ArrowRight className="size-4" />
-            </Button>
+            <button
+              onClick={() => navigate("shop")}
+              className="group hidden items-center gap-1.5 text-sm font-medium hover:text-accent sm:flex"
+            >
+              View all
+              <ArrowUpRight className="size-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            </button>
           </div>
-          <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
+          <div className="grid grid-cols-2 gap-x-4 gap-y-10 md:grid-cols-4 md:gap-x-6">
             {(featured || []).map((p) => (
               <ProductCard key={p.id} product={p} navigate={navigate} />
             ))}
-            {!featured &&
-              Array.from({ length: 8 }).map((_, i) => <Skeleton key={i} className="aspect-square rounded-2xl" />)}
+            {!featured && Array.from({ length: 8 }).map((_, i) => (
+              <div key={i}>
+                <Skeleton className="aspect-[4/5] rounded-sm" />
+                <Skeleton className="mt-3 h-3 w-16" />
+                <Skeleton className="mt-2 h-4 w-3/4" />
+                <Skeleton className="mt-1 h-4 w-20" />
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Promo banner */}
-      <section className="mx-auto max-w-7xl px-4 py-16">
-        <div className="relative overflow-hidden rounded-3xl bg-primary p-8 text-primary-foreground md:p-14">
-          <div className="absolute -right-10 -top-10 size-64 rounded-full bg-white/10 blur-2xl" />
-          <div className="absolute -bottom-16 -left-10 size-72 rounded-full bg-white/10 blur-2xl" />
-          <div className="relative max-w-lg">
-            <p className="text-sm font-medium text-primary-foreground/80">Limited time offer</p>
-            <h2 className="mt-2 text-3xl font-bold tracking-tight md:text-4xl">
-              Get 20% off your first order
+      {/* ============ Editorial split banner ============ */}
+      <section className="mx-auto max-w-7xl px-4 py-20 md:py-28">
+        <div className="grid items-stretch gap-0 overflow-hidden rounded-sm border md:grid-cols-2">
+          <div className="flex flex-col justify-center bg-foreground p-10 text-background md:p-16">
+            <p className="text-[11px] uppercase tracking-luxe text-background/60">Members get more</p>
+            <h2 className="display mt-4 text-3xl leading-tight md:text-5xl">
+              Join ShopEase &amp; save 20% on your first order
             </h2>
-            <p className="mt-3 text-primary-foreground/80">
-              Sign up today and unlock an exclusive discount on your first purchase. No catch, just savings.
+            <p className="mt-4 max-w-md text-background/75">
+              Create a free account to unlock member pricing, faster checkout, and
+              order tracking. No catch — just a thank you for shopping with us.
             </p>
-            <Button size="lg" variant="secondary" className="mt-6 h-12 px-7 text-base" onClick={() => navigate("register")}>
-              Create account <ArrowRight className="size-4" />
-            </Button>
-          </div>
-        </div>
-      </section>
-
-      {/* Best sellers */}
-      {bestSellers && bestSellers.length > 0 && (
-        <section className="mx-auto max-w-7xl px-4 pb-16">
-          <div className="mb-8 flex items-end justify-between">
-            <div>
-              <p className="text-sm font-medium text-primary">Customer favorites</p>
-              <h2 className="mt-1 text-2xl font-bold tracking-tight md:text-3xl">Best Sellers</h2>
+            <div className="mt-8">
+              <Button
+                size="lg"
+                onClick={() => navigate("register")}
+                className="h-12 rounded-none bg-background px-8 text-base text-foreground hover:bg-background/90"
+              >
+                Create account
+                <ArrowRight className="size-4" />
+              </Button>
             </div>
           </div>
-          <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+          <div className="min-h-[300px] bg-secondary">
+            <img
+              src="/products/leather-travel-backpack.png"
+              alt="Member benefit"
+              className="size-full h-full object-cover"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* ============ Best sellers ============ */}
+      {bestSellers && bestSellers.length > 0 && (
+        <section className="mx-auto max-w-7xl px-4 pb-20 md:pb-28">
+          <div className="mb-10 flex items-end justify-between gap-4">
+            <div>
+              <p className="text-[11px] uppercase tracking-luxe text-accent">Loved by many</p>
+              <h2 className="display mt-2 text-3xl md:text-4xl">Best sellers</h2>
+            </div>
+          </div>
+          <div className="grid grid-cols-2 gap-x-4 gap-y-10 md:grid-cols-4 md:gap-x-6">
             {bestSellers.map((p) => (
               <ProductCard key={p.id} product={p} navigate={navigate} />
             ))}
@@ -172,34 +202,58 @@ export function HomeView({ navigate }: { navigate: Navigate }) {
         </section>
       )}
 
-      {/* Testimonials */}
-      <section className="border-t bg-muted/30">
-        <div className="mx-auto max-w-7xl px-4 py-16">
-          <div className="mb-10 text-center">
-            <p className="text-sm font-medium text-primary">Loved by shoppers</p>
-            <h2 className="mt-1 text-2xl font-bold tracking-tight md:text-3xl">What Our Customers Say</h2>
+      {/* ============ Testimonials ============ */}
+      <section className="border-t bg-secondary/40">
+        <div className="mx-auto max-w-7xl px-4 py-20 md:py-28">
+          <div className="mb-12 text-center">
+            <p className="text-[11px] uppercase tracking-luxe text-accent">In good company</p>
+            <h2 className="display mt-2 text-3xl md:text-4xl">What our customers say</h2>
           </div>
-          <div className="grid gap-6 md:grid-cols-3">
+          <div className="grid gap-8 md:grid-cols-3">
             {testimonials.map((t) => (
-              <div key={t.name} className="relative rounded-2xl border bg-card p-6 shadow-sm">
-                <Quote className="size-8 text-primary/20" />
-                <p className="mt-3 text-sm leading-relaxed text-foreground/80">{t.quote}</p>
-                <div className="mt-5 flex items-center gap-3">
-                  <div className="grid size-10 place-items-center rounded-full bg-primary/10 text-sm font-semibold text-primary">
-                    {t.name.slice(0, 2)}
-                  </div>
-                  <div>
-                    <p className="text-sm font-semibold">{t.name}</p>
-                    <div className="flex items-center gap-0.5">
-                      {Array.from({ length: 5 }).map((_, i) => (
-                        <Star key={i} className="size-3 fill-amber-400 text-amber-400" />
-                      ))}
-                    </div>
-                  </div>
+              <figure key={t.name} className="flex flex-col">
+                <div className="mb-4 flex gap-0.5">
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <Star key={i} className="size-3.5 fill-accent text-accent" strokeWidth={0} />
+                  ))}
                 </div>
-              </div>
+                <blockquote className="font-display text-xl leading-relaxed text-foreground">
+                  &ldquo;{t.quote}&rdquo;
+                </blockquote>
+                <figcaption className="mt-5 text-sm">
+                  <span className="font-medium">{t.name}</span>
+                  <span className="text-muted-foreground"> · Verified buyer</span>
+                </figcaption>
+              </figure>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* ============ Newsletter ============ */}
+      <section className="border-t">
+        <div className="mx-auto max-w-3xl px-4 py-20 text-center md:py-28">
+          <p className="text-[11px] uppercase tracking-luxe text-accent">Newsletter</p>
+          <h2 className="display mt-3 text-3xl md:text-4xl">
+            Stay in the loop
+          </h2>
+          <p className="mx-auto mt-3 max-w-md text-muted-foreground">
+            Be the first to know about new arrivals, restocks, and members-only offers.
+          </p>
+          <form
+            onSubmit={(e) => { e.preventDefault(); }}
+            className="mx-auto mt-8 flex max-w-md items-center gap-2 border-b-2 border-foreground/30 pb-2 focus-within:border-foreground"
+          >
+            <input
+              type="email"
+              required
+              placeholder="Your email address"
+              className="h-10 flex-1 bg-transparent text-base outline-none placeholder:text-muted-foreground"
+            />
+            <button type="submit" className="text-sm font-medium uppercase tracking-luxe text-foreground hover:text-accent">
+              Subscribe →
+            </button>
+          </form>
         </div>
       </section>
     </div>
@@ -209,14 +263,14 @@ export function HomeView({ navigate }: { navigate: Navigate }) {
 const testimonials = [
   {
     name: "Sarah K.",
-    quote: "ShopEase has become my go-to. The quality exceeded my expectations and delivery was lightning fast. Will definitely shop again!",
+    quote: "The quality genuinely surprised me. Everything arrived beautifully packaged and the pieces feel built to last.",
   },
   {
     name: "Marcus T.",
-    quote: "Clean interface, fair prices, and the checkout was genuinely the smoothest I've used. The order tracking is a nice touch.",
+    quote: "Cleanest checkout I've used on any store. Order tracking is thoughtful — it actually feels designed for humans.",
   },
   {
     name: "Elena R.",
-    quote: "I bought the wireless headphones and the leather backpack — both premium quality. Customer support was responsive and helpful.",
+    quote: "Bought the headphones and the leather backpack. Both premium, fairly priced. Support replied within an hour.",
   },
 ];

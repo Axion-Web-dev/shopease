@@ -23,9 +23,9 @@ export function ProductDetail({ navigate, params }: { navigate: Navigate; params
 
   if (isLoading) {
     return (
-      <div className="mx-auto max-w-7xl px-4 py-8">
-        <div className="grid gap-10 md:grid-cols-2">
-          <Skeleton className="aspect-square rounded-3xl" />
+      <div className="mx-auto max-w-7xl px-4 py-10">
+        <div className="grid gap-12 md:grid-cols-2">
+          <Skeleton className="aspect-square rounded-sm" />
           <div className="space-y-4">
             <Skeleton className="h-6 w-24" />
             <Skeleton className="h-10 w-3/4" />
@@ -41,8 +41,8 @@ export function ProductDetail({ navigate, params }: { navigate: Navigate; params
   if (!data?.product) {
     return (
       <div className="mx-auto flex max-w-7xl flex-col items-center px-4 py-24 text-center">
-        <p className="text-lg font-semibold">Product not found</p>
-        <Button className="mt-4" onClick={() => navigate("shop")}>Back to Shop</Button>
+        <p className="display text-xl">Product not found</p>
+        <Button className="mt-4 rounded-none" onClick={() => navigate("shop")}>Back to Shop</Button>
       </div>
     );
   }
@@ -65,25 +65,25 @@ export function ProductDetail({ navigate, params }: { navigate: Navigate; params
   };
 
   return (
-    <div className="animate-fade-in-up mx-auto max-w-7xl px-4 py-8">
+    <div className="animate-fade-in-up mx-auto max-w-7xl px-4 py-10">
       {/* Breadcrumb */}
-      <nav className="mb-6 flex items-center gap-1.5 text-sm text-muted-foreground">
-        <button onClick={() => navigate("home")} className="hover:text-primary">Home</button>
+      <nav className="mb-8 flex items-center gap-1.5 text-[11px] uppercase tracking-luxe text-muted-foreground">
+        <button onClick={() => navigate("home")} className="hover:text-accent">Home</button>
         <ChevronRight className="size-3.5" />
-        <button onClick={() => navigate("shop", { category: product.category?.slug })} className="hover:text-primary">
+        <button onClick={() => navigate("shop", { category: product.category?.slug })} className="hover:text-accent">
           {product.category?.name || "Shop"}
         </button>
         <ChevronRight className="size-3.5" />
         <span className="truncate text-foreground">{product.name}</span>
       </nav>
 
-      <div className="grid gap-10 md:grid-cols-2">
+      <div className="grid gap-12 md:grid-cols-2">
         {/* Gallery */}
         <div className="flex flex-col gap-4">
-          <div className="relative overflow-hidden rounded-3xl border bg-muted">
+          <div className="relative overflow-hidden rounded-sm border bg-secondary">
             <img src={product.images[activeImg]} alt={product.name} className="aspect-square w-full object-cover" />
             {discount && (
-              <UiBadge className="absolute left-4 top-4 bg-destructive text-white">-{discount}%</UiBadge>
+              <UiBadge className="absolute left-4 top-4 rounded-none border-0 bg-background px-2.5 py-1 text-[11px] font-medium tracking-wide text-foreground">−{discount}%</UiBadge>
             )}
           </div>
           {product.images.length > 1 && (
@@ -93,8 +93,8 @@ export function ProductDetail({ navigate, params }: { navigate: Navigate; params
                   key={i}
                   onClick={() => setActiveImg(i)}
                   className={cn(
-                    "size-20 overflow-hidden rounded-xl border-2 bg-muted transition-all",
-                    activeImg === i ? "border-primary" : "border-transparent opacity-70 hover:opacity-100"
+                    "size-20 overflow-hidden rounded-sm border-2 bg-secondary transition-all",
+                    activeImg === i ? "border-foreground" : "border-transparent opacity-70 hover:opacity-100"
                   )}
                 >
                   <img src={img} alt="" className="size-full object-cover" />
@@ -106,24 +106,24 @@ export function ProductDetail({ navigate, params }: { navigate: Navigate; params
 
         {/* Info */}
         <div>
-          <div className="flex items-center gap-2">
-            <span className="text-sm font-medium uppercase tracking-wide text-primary">
+          <div className="flex items-center gap-3">
+            <span className="text-[11px] uppercase tracking-luxe text-accent">
               {product.category?.name}
             </span>
             {product.badge && (
-              <UiBadge variant="secondary">{product.badge}</UiBadge>
+              <UiBadge variant="secondary" className="rounded-none text-[11px] uppercase tracking-luxe">{product.badge}</UiBadge>
             )}
           </div>
-          <h1 className="mt-2 text-3xl font-bold tracking-tight">{product.name}</h1>
+          <h1 className="display mt-3 text-4xl tracking-tight">{product.name}</h1>
 
-          <div className="mt-3 flex items-center gap-3">
+          <div className="mt-4 flex items-center gap-3">
             <div className="flex items-center gap-1">
               {Array.from({ length: 5 }).map((_, i) => (
                 <Star
                   key={i}
                   className={cn(
                     "size-4",
-                    i < Math.round(product.rating) ? "fill-amber-400 text-amber-400" : "text-muted-foreground/30"
+                    i < Math.round(product.rating) ? "fill-accent text-accent" : "text-muted-foreground/30"
                   )}
                 />
               ))}
@@ -133,39 +133,39 @@ export function ProductDetail({ navigate, params }: { navigate: Navigate; params
           </div>
 
           <div className="mt-5 flex items-baseline gap-3">
-            <span className="text-3xl font-bold">{formatPrice(product.price)}</span>
+            <span className="display text-3xl">{formatPrice(product.price)}</span>
             {product.compareAtPrice && (
               <span className="text-lg text-muted-foreground line-through">
                 {formatPrice(product.compareAtPrice)}
               </span>
             )}
             {discount && (
-              <UiBadge className="bg-destructive/10 text-destructive">Save {formatPrice((product.compareAtPrice! - product.price))}</UiBadge>
+              <span className="text-[11px] uppercase tracking-luxe text-accent">Save {formatPrice((product.compareAtPrice! - product.price))}</span>
             )}
           </div>
 
-          <p className="mt-4 text-sm leading-relaxed text-muted-foreground">{product.description}</p>
+          <p className="mt-5 text-sm leading-relaxed text-muted-foreground">{product.description}</p>
 
           {/* Stock */}
           <div className="mt-5">
             {outOfStock ? (
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-destructive/10 px-3 py-1 text-sm font-medium text-destructive">
+              <span className="inline-flex items-center gap-1.5 border border-destructive/30 bg-destructive/5 px-3 py-1 text-[11px] uppercase tracking-luxe text-destructive">
                 Out of stock
               </span>
             ) : lowStock ? (
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-500/10 px-3 py-1 text-sm font-medium text-amber-600">
-                <Check className="size-3.5" /> Only {product.stock} left in stock
+              <span className="inline-flex items-center gap-1.5 border border-accent/30 bg-accent/5 px-3 py-1 text-[11px] uppercase tracking-luxe text-accent">
+                <Check className="size-3.5" /> Only {product.stock} left
               </span>
             ) : (
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/10 px-3 py-1 text-sm font-medium text-emerald-600">
-                <Check className="size-3.5" /> In stock ({product.stock} available)
+              <span className="inline-flex items-center gap-1.5 border border-foreground/15 px-3 py-1 text-[11px] uppercase tracking-luxe text-foreground">
+                <Check className="size-3.5" /> In stock
               </span>
             )}
           </div>
 
           {/* Quantity + Add */}
-          <div className="mt-6 flex flex-wrap items-center gap-3">
-            <div className="flex items-center rounded-xl border">
+          <div className="mt-7 flex flex-wrap items-center gap-3">
+            <div className="flex items-center rounded-sm border">
               <button
                 onClick={() => setQty((q) => Math.max(1, q - 1))}
                 className="grid size-11 place-items-center text-muted-foreground hover:text-foreground"
@@ -181,15 +181,15 @@ export function ProductDetail({ navigate, params }: { navigate: Navigate; params
                 <Plus className="size-4" />
               </button>
             </div>
-            <Button size="lg" className="h-12 flex-1 min-w-[180px]" onClick={handleAdd} disabled={outOfStock}>
+            <Button size="lg" className="h-12 flex-1 min-w-[180px] rounded-none" onClick={handleAdd} disabled={outOfStock}>
               <ShoppingBag className="size-4" /> Add to Cart
             </Button>
-            <Button size="lg" variant="outline" className="h-12" onClick={buyNow} disabled={outOfStock}>
+            <Button size="lg" variant="outline" className="h-12 rounded-none" onClick={buyNow} disabled={outOfStock}>
               Buy Now
             </Button>
           </div>
 
-          <Separator className="my-6" />
+          <Separator className="my-8" />
 
           {/* Trust */}
           <div className="grid grid-cols-3 gap-4">
@@ -199,7 +199,7 @@ export function ProductDetail({ navigate, params }: { navigate: Navigate; params
               { icon: ShieldCheck, label: "Secure payment" },
             ].map((t) => (
               <div key={t.label} className="flex flex-col items-center gap-2 text-center">
-                <span className="grid size-10 place-items-center rounded-full bg-primary/10 text-primary">
+                <span className="grid size-10 place-items-center rounded-sm bg-secondary text-foreground">
                   <t.icon className="size-4" />
                 </span>
                 <span className="text-xs text-muted-foreground">{t.label}</span>
@@ -210,7 +210,7 @@ export function ProductDetail({ navigate, params }: { navigate: Navigate; params
           {/* Description */}
           {product.longDescription && (
             <div className="mt-8">
-              <h2 className="mb-2 text-sm font-semibold">Product Details</h2>
+              <h2 className="display mb-3 text-lg">Product Details</h2>
               <p className="text-sm leading-relaxed text-muted-foreground">{product.longDescription}</p>
             </div>
           )}
@@ -219,9 +219,13 @@ export function ProductDetail({ navigate, params }: { navigate: Navigate; params
 
       {/* Related */}
       {related && related.length > 0 && (
-        <section className="mt-16">
-          <h2 className="mb-6 text-2xl font-bold tracking-tight">You may also like</h2>
-          <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+        <section className="mt-20">
+          <div className="mb-8 flex items-center gap-3">
+            <span className="text-[11px] uppercase tracking-luxe text-accent">Discover</span>
+            <span className="h-px flex-1 bg-border" />
+          </div>
+          <h2 className="display mb-8 text-2xl tracking-tight">You may also like</h2>
+          <div className="grid grid-cols-2 gap-5 md:grid-cols-4">
             {related.map((p) => (
               <ProductCard key={p.id} product={p} navigate={navigate} />
             ))}

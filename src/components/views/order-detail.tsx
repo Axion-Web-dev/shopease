@@ -19,7 +19,7 @@ export function OrderDetail({ navigate, params }: { navigate: Navigate; params: 
     return (
       <div className="mx-auto max-w-4xl px-4 py-8">
         <Skeleton className="h-8 w-48" />
-        <Skeleton className="mt-6 h-64 rounded-2xl" />
+        <Skeleton className="mt-6 h-64 rounded-sm" />
       </div>
     );
   }
@@ -57,7 +57,7 @@ export function OrderDetail({ navigate, params }: { navigate: Navigate; params: 
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
-            <h1 className="text-2xl font-bold tracking-tight">Order {order.orderNumber}</h1>
+            <h1 className="display text-3xl tracking-tight">Order {order.orderNumber}</h1>
             <button onClick={copyOrderNum} className="text-muted-foreground hover:text-foreground">
               <Copy className="size-4" />
             </button>
@@ -69,8 +69,8 @@ export function OrderDetail({ navigate, params }: { navigate: Navigate; params: 
 
       {/* Tracking */}
       {!isCancelled ? (
-        <div className="mt-6 rounded-2xl border bg-card p-6">
-          <h2 className="mb-6 text-sm font-semibold">Order Tracking</h2>
+        <div className="mt-6 rounded-sm border bg-card p-6">
+          <h2 className="display mb-6 text-sm font-semibold uppercase tracking-luxe text-muted-foreground">Order Tracking</h2>
           <div className="relative">
             <div className="absolute left-0 right-0 top-5 h-0.5 bg-muted">
               <div
@@ -103,7 +103,7 @@ export function OrderDetail({ navigate, params }: { navigate: Navigate; params: 
           </div>
         </div>
       ) : (
-        <div className="mt-6 rounded-2xl border border-destructive/30 bg-destructive/5 p-6 text-center">
+        <div className="mt-6 rounded-sm border border-destructive/30 bg-destructive/5 p-6 text-center">
           <p className="font-medium text-destructive">This order was cancelled</p>
           <p className="mt-1 text-sm text-muted-foreground">If you have questions, please contact support.</p>
         </div>
@@ -112,13 +112,13 @@ export function OrderDetail({ navigate, params }: { navigate: Navigate; params: 
       <div className="mt-6 grid gap-6 md:grid-cols-3">
         {/* Items */}
         <div className="md:col-span-2">
-          <div className="rounded-2xl border bg-card p-6">
-            <h2 className="mb-4 text-sm font-semibold">Items ({order.items.length})</h2>
+          <div className="rounded-sm border bg-card p-6">
+            <h2 className="display mb-4 text-sm font-semibold uppercase tracking-luxe text-muted-foreground">Items ({order.items.length})</h2>
             <div className="divide-y">
               {order.items.map((item) => (
                 <div key={item.id} className="flex gap-4 py-4 first:pt-0 last:pb-0">
                   <div
-                    className="size-16 shrink-0 cursor-pointer overflow-hidden rounded-xl bg-muted"
+                    className="size-16 shrink-0 cursor-pointer overflow-hidden rounded-sm bg-muted"
                     onClick={() => navigate("product", { id: item.productId })}
                   >
                     <img src={item.image} alt={item.productName} className="size-full object-cover" />
@@ -154,9 +154,9 @@ export function OrderDetail({ navigate, params }: { navigate: Navigate; params: 
 
         {/* Info */}
         <div className="space-y-4">
-          <div className="rounded-2xl border bg-card p-5">
-            <h3 className="flex items-center gap-2 text-sm font-semibold">
-              <MapPin className="size-4 text-primary" /> Shipping Address
+          <div className="rounded-sm border bg-card p-5">
+            <h3 className="display flex items-center gap-2 text-sm font-semibold">
+              <MapPin className="size-4 text-accent" /> Shipping Address
             </h3>
             <div className="mt-3 text-sm text-muted-foreground">
               <p className="font-medium text-foreground">{order.customerName}</p>
@@ -166,9 +166,9 @@ export function OrderDetail({ navigate, params }: { navigate: Navigate; params: 
               <p className="mt-1">{order.phone}</p>
             </div>
           </div>
-          <div className="rounded-2xl border bg-card p-5">
-            <h3 className="flex items-center gap-2 text-sm font-semibold">
-              <CreditCard className="size-4 text-primary" /> Payment
+          <div className="rounded-sm border bg-card p-5">
+            <h3 className="display flex items-center gap-2 text-sm font-semibold">
+              <CreditCard className="size-4 text-accent" /> Payment
             </h3>
             <div className="mt-3 space-y-1 text-sm">
               <div className="flex justify-between">
@@ -182,8 +182,8 @@ export function OrderDetail({ navigate, params }: { navigate: Navigate; params: 
             </div>
           </div>
           {order.notes && (
-            <div className="rounded-2xl border bg-card p-5">
-              <h3 className="text-sm font-semibold">Order Notes</h3>
+            <div className="rounded-sm border bg-card p-5">
+              <h3 className="display text-sm font-semibold">Order Notes</h3>
               <p className="mt-2 text-sm text-muted-foreground">{order.notes}</p>
             </div>
           )}

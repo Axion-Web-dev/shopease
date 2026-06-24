@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { ShoppingBag, Mail, Lock, User, Eye, EyeOff, Loader2, Sparkles, Check } from "lucide-react";
+import { ShoppingBag, Mail, Lock, User, Eye, EyeOff, Loader2, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -57,20 +57,20 @@ export function AuthView({ navigate, mode }: { navigate: Navigate; mode: "login"
     <div className="mx-auto grid min-h-[calc(100vh-9rem)] max-w-7xl items-center gap-10 px-4 py-10 lg:grid-cols-2">
       {/* Left — brand panel */}
       <div className="hidden lg:block">
-        <div className="relative overflow-hidden rounded-3xl bg-primary p-10 text-primary-foreground">
+        <div className="relative overflow-hidden rounded-sm bg-foreground p-10 text-background">
           <div className="absolute -right-16 -top-16 size-64 rounded-full bg-white/10 blur-2xl" />
           <div className="absolute -bottom-20 -left-10 size-72 rounded-full bg-white/10 blur-2xl" />
           <div className="relative">
             <div className="flex items-center gap-2">
-              <span className="grid size-10 place-items-center rounded-xl bg-white/15">
+              <span className="grid size-10 place-items-center rounded-sm bg-background/15">
                 <ShoppingBag className="size-5" />
               </span>
-              <span className="text-2xl font-bold">ShopEase</span>
+              <span className="font-display text-2xl">ShopEase</span>
             </div>
-            <h2 className="mt-10 text-3xl font-bold leading-tight">
+            <h2 className="display mt-10 text-3xl leading-tight md:text-4xl">
               {mode === "login" ? "Welcome back to smarter shopping" : "Join thousands of happy shoppers"}
             </h2>
-            <p className="mt-3 text-primary-foreground/80">
+            <p className="mt-3 text-background/80">
               {mode === "login"
                 ? "Sign in to track orders, save favorites, and check out faster."
                 : "Create an account to unlock exclusive deals and a seamless checkout experience."}
@@ -91,9 +91,9 @@ export function AuthView({ navigate, mode }: { navigate: Navigate; mode: "login"
               ))}
             </ul>
             <div className="mt-10 flex items-center gap-6 border-t border-white/15 pt-6">
-              <div><p className="text-2xl font-bold">10k+</p><p className="text-xs text-primary-foreground/70">Customers</p></div>
-              <div><p className="text-2xl font-bold">4.8★</p><p className="text-xs text-primary-foreground/70">Avg rating</p></div>
-              <div><p className="text-2xl font-bold">500+</p><p className="text-xs text-primary-foreground/70">Products</p></div>
+              <div><p className="font-display text-2xl">10k+</p><p className="text-xs text-background/60">Customers</p></div>
+              <div><p className="font-display text-2xl">4.8★</p><p className="text-xs text-background/60">Avg rating</p></div>
+              <div><p className="font-display text-2xl">500+</p><p className="text-xs text-background/60">Products</p></div>
             </div>
           </div>
         </div>
@@ -101,13 +101,12 @@ export function AuthView({ navigate, mode }: { navigate: Navigate; mode: "login"
 
       {/* Right — form */}
       <div className="mx-auto w-full max-w-md">
-        <div className="rounded-3xl border bg-card p-8 shadow-sm">
+        <div className="rounded-sm border bg-card p-8 shadow-sm">
           <div className="mb-6 text-center">
-            <span className="inline-flex items-center gap-1.5 rounded-full border bg-background px-3 py-1 text-xs font-medium">
-              <Sparkles className="size-3.5 text-primary" />
+            <span className="inline-flex items-center gap-1.5 rounded-sm border bg-background px-3 py-1 text-[11px] uppercase tracking-luxe text-accent">
               {mode === "login" ? "Sign in to continue" : "Create your account"}
             </span>
-            <h1 className="mt-4 text-2xl font-bold tracking-tight">
+            <h1 className="display mt-4 text-3xl tracking-tight">
               {mode === "login" ? "Welcome back" : "Get started today"}
             </h1>
             <p className="mt-1 text-sm text-muted-foreground">
@@ -177,7 +176,7 @@ export function AuthView({ navigate, mode }: { navigate: Navigate; mode: "login"
           </form>
 
           {mode === "login" && (
-            <div className="mt-5 rounded-xl border border-dashed bg-muted/30 p-4">
+            <div className="mt-5 rounded-sm border border-dashed bg-muted/30 p-4">
               <p className="text-xs font-semibold text-muted-foreground">Demo accounts (click to fill)</p>
               <div className="mt-2 flex gap-2">
                 <Button type="button" variant="outline" size="sm" className="flex-1" onClick={() => fillDemo("admin")}>

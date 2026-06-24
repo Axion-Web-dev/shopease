@@ -20,11 +20,11 @@ export function AdminDashboard({ navigate }: { navigate: Navigate }) {
       <div>
         <h1 className="text-2xl font-bold tracking-tight">Dashboard</h1>
         <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {Array.from({ length: 4 }).map((_, i) => <Skeleton key={i} className="h-28 rounded-2xl" />)}
+          {Array.from({ length: 4 }).map((_, i) => <Skeleton key={i} className="h-28 rounded-sm" />)}
         </div>
         <div className="mt-6 grid gap-4 lg:grid-cols-3">
-          <Skeleton className="h-72 rounded-2xl lg:col-span-2" />
-          <Skeleton className="h-72 rounded-2xl" />
+          <Skeleton className="h-72 rounded-sm lg:col-span-2" />
+          <Skeleton className="h-72 rounded-sm" />
         </div>
       </div>
     );
@@ -43,7 +43,7 @@ export function AdminDashboard({ navigate }: { navigate: Navigate }) {
     <div>
       <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">Dashboard</h1>
+          <h1 className="display text-3xl tracking-tight">Dashboard</h1>
           <p className="text-sm text-muted-foreground">Welcome back. Here&apos;s what&apos;s happening with your store.</p>
         </div>
         <Button onClick={() => navigate("admin", { section: "products" })}>
@@ -108,7 +108,7 @@ export function AdminDashboard({ navigate }: { navigate: Navigate }) {
       <div className="mt-6 grid gap-4 lg:grid-cols-3">
         <Card className="lg:col-span-2">
           <CardHeader>
-            <CardTitle className="text-base">Revenue (last 7 days)</CardTitle>
+            <CardTitle className="display text-base">Revenue (last 7 days)</CardTitle>
           </CardHeader>
           <CardContent>
             <ResponsiveContainer width="100%" height={280}>
@@ -128,7 +128,7 @@ export function AdminDashboard({ navigate }: { navigate: Navigate }) {
 
         <Card>
           <CardHeader>
-            <CardTitle className="text-base">Orders by Status</CardTitle>
+            <CardTitle className="display text-base">Orders by Status</CardTitle>
           </CardHeader>
           <CardContent>
             <ResponsiveContainer width="100%" height={280}>
@@ -152,7 +152,7 @@ export function AdminDashboard({ navigate }: { navigate: Navigate }) {
       <div className="mt-6 grid gap-4 lg:grid-cols-2">
         <Card>
           <CardHeader>
-            <CardTitle className="text-base">Top Products by Revenue</CardTitle>
+            <CardTitle className="display text-base">Top Products by Revenue</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-3">
@@ -178,7 +178,7 @@ export function AdminDashboard({ navigate }: { navigate: Navigate }) {
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between">
-            <CardTitle className="text-base">Recent Orders</CardTitle>
+            <CardTitle className="display text-base">Recent Orders</CardTitle>
             <Button variant="ghost" size="sm" onClick={() => navigate("admin", { section: "orders" })}>
               View all
             </Button>
@@ -207,7 +207,7 @@ export function AdminDashboard({ navigate }: { navigate: Navigate }) {
       {/* Revenue by category */}
       <Card className="mt-6">
         <CardHeader>
-          <CardTitle className="text-base">Revenue by Category</CardTitle>
+          <CardTitle className="display text-base">Revenue by Category</CardTitle>
         </CardHeader>
         <CardContent>
           <ResponsiveContainer width="100%" height={240}>

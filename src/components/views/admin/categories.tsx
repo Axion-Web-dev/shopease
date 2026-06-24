@@ -25,7 +25,7 @@ export function AdminCategories() {
     <div>
       <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">Categories</h1>
+          <h1 className="display text-3xl tracking-tight">Categories</h1>
           <p className="text-sm text-muted-foreground">{categories?.length || 0} categories</p>
         </div>
         <Button onClick={() => setCreating(true)}>
@@ -35,12 +35,12 @@ export function AdminCategories() {
 
       {isLoading ? (
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {Array.from({ length: 4 }).map((_, i) => <Skeleton key={i} className="h-40 rounded-2xl" />)}
+          {Array.from({ length: 4 }).map((_, i) => <Skeleton key={i} className="h-40 rounded-sm" />)}
         </div>
       ) : categories && categories.length > 0 ? (
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {categories.map((c) => (
-            <div key={c.id} className="group overflow-hidden rounded-2xl border bg-card">
+            <div key={c.id} className="group overflow-hidden rounded-sm border bg-card">
               <div className="relative aspect-[16/9] overflow-hidden bg-muted">
                 {c.image ? (
                   <img src={c.image} alt={c.name} className="size-full object-cover" />
@@ -70,7 +70,7 @@ export function AdminCategories() {
           ))}
         </div>
       ) : (
-        <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed py-16 text-center">
+        <div className="flex flex-col items-center justify-center rounded-sm border border-dashed py-16 text-center">
           <FolderTree className="size-10 text-muted-foreground/50" />
           <p className="mt-4 font-semibold">No categories yet</p>
           <Button className="mt-4" onClick={() => setCreating(true)}><Plus className="size-4" /> Add category</Button>

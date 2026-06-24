@@ -40,7 +40,7 @@ export function AdminView({ navigate, params }: { navigate: Navigate; params: Re
         <span className="grid size-16 place-items-center rounded-full bg-destructive/10 text-destructive">
           <X className="size-8" />
         </span>
-        <h1 className="mt-6 text-2xl font-bold">Admin access required</h1>
+        <h1 className="display mt-6 text-3xl tracking-tight">Admin access required</h1>
         <p className="mt-2 text-muted-foreground">Sign in with an admin account to access this dashboard.</p>
         <Button className="mt-6" onClick={() => navigate("login")}>Sign In as Admin</Button>
         <p className="mt-3 text-xs text-muted-foreground">Demo: admin@shopease.com / admin123</p>
@@ -52,7 +52,7 @@ export function AdminView({ navigate, params }: { navigate: Navigate; params: Re
     return (
       <div className="mx-auto max-w-7xl px-4 py-8">
         <Skeleton className="h-8 w-48" />
-        <Skeleton className="mt-6 h-64 rounded-2xl" />
+        <Skeleton className="mt-6 h-64 rounded-sm" />
       </div>
     );
   }
@@ -85,11 +85,11 @@ export function AdminView({ navigate, params }: { navigate: Navigate; params: Re
       <aside className="hidden w-64 shrink-0 border-r bg-sidebar md:block">
         <div className="sticky top-28 flex h-[calc(100vh-9rem)] flex-col p-4">
           <div className="mb-6 flex items-center gap-2 px-2">
-            <span className="grid size-8 place-items-center rounded-lg bg-primary text-primary-foreground">
+            <span className="grid size-8 place-items-center rounded-sm bg-primary text-primary-foreground">
               <Store className="size-4" />
             </span>
             <div>
-              <p className="text-sm font-bold">Admin Panel</p>
+              <p className="font-display text-sm font-semibold">Admin Panel</p>
               <p className="text-xs text-muted-foreground">ShopEase</p>
             </div>
           </div>

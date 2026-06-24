@@ -32,7 +32,7 @@ export function AdminOrders() {
   return (
     <div>
       <div className="mb-6">
-        <h1 className="text-2xl font-bold tracking-tight">Orders</h1>
+        <h1 className="display text-3xl tracking-tight">Orders</h1>
         <p className="text-sm text-muted-foreground">{orders?.length || 0} orders</p>
       </div>
 
@@ -61,12 +61,12 @@ export function AdminOrders() {
           {Array.from({ length: 6 }).map((_, i) => <Skeleton key={i} className="h-16 rounded-xl" />)}
         </div>
       ) : filtered.length === 0 ? (
-        <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed py-16 text-center">
+        <div className="flex flex-col items-center justify-center rounded-sm border border-dashed py-16 text-center">
           <ShoppingCart className="size-10 text-muted-foreground/50" />
           <p className="mt-4 font-semibold">No orders found</p>
         </div>
       ) : (
-        <div className="overflow-hidden rounded-2xl border">
+        <div className="overflow-hidden rounded-sm border">
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead className="bg-muted/50 text-xs uppercase tracking-wide text-muted-foreground">

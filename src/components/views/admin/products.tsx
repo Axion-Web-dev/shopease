@@ -40,7 +40,7 @@ export function AdminProducts({ navigate }: { navigate: Navigate }) {
     <div>
       <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">Products</h1>
+          <h1 className="display text-3xl tracking-tight">Products</h1>
           <p className="text-sm text-muted-foreground">{products?.length || 0} products in catalog</p>
         </div>
         <Button onClick={() => setCreating(true)}>
@@ -73,13 +73,13 @@ export function AdminProducts({ navigate }: { navigate: Navigate }) {
           {Array.from({ length: 6 }).map((_, i) => <Skeleton key={i} className="h-16 rounded-xl" />)}
         </div>
       ) : filtered.length === 0 ? (
-        <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed py-16 text-center">
+        <div className="flex flex-col items-center justify-center rounded-sm border border-dashed py-16 text-center">
           <Package className="size-10 text-muted-foreground/50" />
           <p className="mt-4 font-semibold">No products found</p>
           <Button className="mt-4" onClick={() => setCreating(true)}><Plus className="size-4" /> Add your first product</Button>
         </div>
       ) : (
-        <div className="overflow-hidden rounded-2xl border">
+        <div className="overflow-hidden rounded-sm border">
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead className="bg-muted/50 text-xs uppercase tracking-wide text-muted-foreground">
