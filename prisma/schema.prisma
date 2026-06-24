@@ -1,0 +1,94 @@
+// ShopEase — Modern E-commerce Store schema
+// Note: SQLite does not support Prisma enums, so role/status use String with app-level validation.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String
+  password  String
+  role      String   @default("CUSTOMER") // CUSTOMER | ADMIN
+  phone     String?
+  address   String?
+  city      String?
+  country   String?
+  zip       String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  orders    Order[]
+}
+
+model Category {
+  id          String    @id @default(cuid())
+  name        String
+  slug        String    @unique
+  description String?
+  image       String?
+  createdAt   DateTime  @default(now())
+  products    Product[]
+}
+
+model Product {
+  id              String      @id @default(cuid())
+  name            String
+  slug            String      @unique
+  description     String
+  longDescription String?
+  price           Float
+  compareAtPrice  Float?
+  stock           Int         @default(0)
+  categoryId      String
+  category        Category    @relation(fields: [categoryId], references: [id])
+  images          String      @default("[]") // JSON array of image paths
+  rating          Float       @default(4.5)
+  reviewCount     Int         @default(0)
+  featured        Boolean     @default(false)
+  bestSeller      Boolean     @default(false)
+  badge           String?     // e.g. "New", "Sale", "-20%"
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+  orderItems      OrderItem[]
+}
+
+model Order {
+  id            String      @id @default(cuid())
+  orderNumber   String      @unique
+  userId        String?
+  user          User?       @relation(fields: [userId], references: [id])
+  email         String
+  customerName  String
+  phone         String
+  address       String
+  city          String
+  country       String
+  zip           String
+  status        String      @default("PENDING") // PENDING | PROCESSING | SHIPPED | COMPLETED | CANCELLED
+  subtotal      Float
+  shipping      Float       @default(0)
+  total         Float
+  paymentMethod String      @default("COD") // COD | CARD
+  notes         String?
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  items         OrderItem[]
+}
+
+model OrderItem {
+  id          String  @id @default(cuid())
+  orderId     String
+  order       Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId   String
+  product     Product @relation(fields: [productId], references: [id])
+  productName String
+  price       Float
+  quantity    Int
+  image       String
+}
