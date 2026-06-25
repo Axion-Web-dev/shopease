@@ -16,21 +16,19 @@ export function HomeView({ navigate }: { navigate: Navigate }) {
   return (
     <div>
       {/* ============ Full-bleed editorial hero ============ */}
-      <section className="relative">
-        <div className="relative h-[78vh] min-h-[520px] w-full overflow-hidden">
+      <section className=" relative left-1/2 right-1/2 -mx-[51vw] w-screen">
+        <div className="relative h-[78vh] min-h-[555px] w-full overflow-hidden">
           <img src="/hero.png" alt="ShopEase collection" className="size-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/15 to-black/25" />
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-black/30" />
-          <div className="absolute inset-0 flex items-end">
-            <div className="mx-auto w-full max-w-7xl px-4 pb-14 md:pb-20">
-              <div className="max-w-xl text-white">
-                <p className="text-[11px] uppercase tracking-luxe text-white/80">
-                  Autumn / Winter 2025
+          <div className="absolute bottom-1 left-0 right-0 top-0 px-4">
+            <div className="mx-auto max-w-7xl">
+              <div className="max-w-xl rounded-lg bg-black/60 p-8 backdrop-blur-md text-white m">
+                <p className="text-[11px] uppercase tracking-luxe text-white/90 drop-shadow-sm">
+                  Autumn / Winter 2026
                 </p>
-                <h1 className="display mt-4 text-balance text-5xl leading-[1.05] md:text-7xl">
+                <h1 className="display mt-4 text-balance text-5xl leading-[1.05] md:text-7xl drop-shadow-2xl">
                   Considered goods for considered living
                 </h1>
-                <p className="mt-5 max-w-md text-balance text-base text-white/85 md:text-lg">
+                <p className="mt-5 max-w-md text-balance text-base text-white/90 md:text-lg drop-shadow-lg">
                   A curated edit of fashion, electronics, and home essentials —
                   designed to last, priced to be fair.
                 </p>

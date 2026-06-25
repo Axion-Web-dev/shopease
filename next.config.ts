@@ -7,9 +7,10 @@ const nextConfig: NextConfig = {
   compress: true,
   poweredByHeader: false,
   async headers() {
+    const isDev = process.env.NODE_ENV === 'development';
     const cspHeader = [
       "default-src 'self'",
-      "script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net",
+      `script-src 'self' ${isDev ? "'unsafe-eval' " : ""}'unsafe-inline' https://cdn.jsdelivr.net`,
       "style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net",
       "img-src 'self' data: https: blob:",
       "font-src 'self' data:",

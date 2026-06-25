@@ -80,7 +80,7 @@ export function Footer({ navigate }: { navigate: Navigate }) {
         <div className="mt-14 flex flex-col items-center justify-between gap-3 border-t border-background/15 pt-6 text-xs text-background/60 sm:flex-row">
           <p>© {new Date().getFullYear()} ShopEase. All rights reserved.</p>
           <p className="flex items-center gap-1.5">
-            Crafted as a portfolio demo
+            happy shopping
             <ArrowUpRight className="size-3" />
           </p>
         </div>
