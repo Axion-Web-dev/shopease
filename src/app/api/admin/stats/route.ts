@@ -13,7 +13,7 @@ export async function GET() {
     db.order.count(),
     db.user.count({ where: { role: "CUSTOMER" } }),
     db.order.findMany({ orderBy: { createdAt: "desc" }, take: 6, include: { items: true } }),
-    db.product.findMany({ include: { category: true } }),
+    db.product.findMany({ include: { category: true, orderItems: true } }),
   ]);
 
   const paidRevenue = orders; // recent only for revenue snapshot

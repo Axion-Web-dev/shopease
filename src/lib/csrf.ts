@@ -8,9 +8,12 @@ if (!CSRF_SECRET) {
   throw new Error('SESSION_SECRET environment variable is required for CSRF protection');
 }
 
+// Type assertion to satisfy TypeScript since we've already validated it's not undefined
+const SECRET = CSRF_SECRET as string;
+
 export async function generateCsrfToken(): Promise<string> {
   const token = crypto.randomBytes(32).toString('hex');
-  const signature = crypto.createHmac('sha256', CSRF_SECRET).update(token).digest('hex');
+  const signature = crypto.createHmac('sha256', SECRET).update(token).digest('hex');
   const csrfToken = `${token}.${signature}`;
   
   const store = await cookies();
@@ -38,7 +41,7 @@ export async function validateCsrfToken(token: string): Promise<boolean> {
   if (storedTokenPart !== token) return false;
   
   // Verify the signature
-  const expectedSignature = crypto.createHmac('sha256', CSRF_SECRET).update(token).digest('hex');
+  const expectedSignature = crypto.createHmac('sha256', SECRET).update(token).digest('hex');
   return crypto.timingSafeEqual(Buffer.from(storedSignature), Buffer.from(expectedSignature));
 }
 

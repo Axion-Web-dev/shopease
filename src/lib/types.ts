@@ -10,6 +10,7 @@ export interface User {
   city?: string | null;
   country?: string | null;
   zip?: string | null;
+  createdAt?: string;
 }
 
 export interface Category {

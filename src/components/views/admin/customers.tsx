@@ -69,7 +69,7 @@ export function AdminCustomers({ navigate }: { navigate: Navigate }) {
               <div className="mt-3 space-y-1 text-xs text-muted-foreground">
                 {c.phone && <p className="flex items-center gap-1.5"><Phone className="size-3" />{c.phone}</p>}
                 {(c.city || c.country) && <p className="flex items-center gap-1.5"><MapPin className="size-3" />{[c.city, c.country].filter(Boolean).join(", ")}</p>}
-                <p className="text-muted-foreground/70">Joined {formatDate(c.createdAt)}</p>
+                {c.createdAt && <p className="text-muted-foreground/70">Joined {formatDate(c.createdAt)}</p>}
               </div>
               <Button variant="outline" size="sm" className="mt-4 w-full" onClick={() => setViewing(c)}>
                 <Eye className="size-4" /> View orders
