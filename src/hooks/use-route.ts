@@ -11,6 +11,7 @@ export type View =
   | "checkout"
   | "login"
   | "register"
+  | "admin-login"
   | "orders"
   | "order"
   | "account"

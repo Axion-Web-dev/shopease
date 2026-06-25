@@ -28,10 +28,14 @@ export function AuthView({ navigate, mode }: { navigate: Navigate; mode: "login"
       if (mode === "login") {
         const user = await login(email, password);
         toast.success(`Welcome back, ${user.name.split(" ")[0]}!`);
-        navigate(user.role === "ADMIN" ? "admin" : "orders");
+        navigate("orders");
       } else {
         if (name.trim().length < 2) throw new Error("Please enter your name");
-        if (password.length < 6) throw new Error("Password must be at least 6 characters");
+        if (password.length < 8) throw new Error("Password must be at least 8 characters");
+        if (!/[a-z]/.test(password)) throw new Error("Password must contain at least one lowercase letter");
+        if (!/[A-Z]/.test(password)) throw new Error("Password must contain at least one uppercase letter");
+        if (!/[0-9]/.test(password)) throw new Error("Password must contain at least one number");
+        if (!/[^a-zA-Z0-9]/.test(password)) throw new Error("Password must contain at least one special character");
         const user = await register(name, email, password);
         toast.success(`Account created. Welcome, ${user.name.split(" ")[0]}!`);
         navigate("home");
@@ -43,16 +47,6 @@ export function AuthView({ navigate, mode }: { navigate: Navigate; mode: "login"
 
   const switchMode = (m: View) => navigate(m);
 
-  const fillDemo = (type: "admin" | "customer") => {
-    if (type === "admin") {
-      setEmail("admin@shopease.com");
-      setPassword("admin123");
-    } else {
-      setEmail("customer@shopease.com");
-      setPassword("customer123");
-    }
-  };
-
   return (
     <div className="mx-auto grid min-h-[calc(100vh-9rem)] max-w-7xl items-center gap-10 px-4 py-10 lg:grid-cols-2">
       {/* Left — brand panel */}
@@ -62,10 +56,7 @@ export function AuthView({ navigate, mode }: { navigate: Navigate; mode: "login"
           <div className="absolute -bottom-20 -left-10 size-72 rounded-full bg-white/10 blur-2xl" />
           <div className="relative">
             <div className="flex items-center gap-2">
-              <span className="grid size-10 place-items-center rounded-sm bg-background/15">
-                <ShoppingBag className="size-5" />
-              </span>
-              <span className="font-display text-2xl">ShopEase</span>
+              <img src="/loggo.png" alt="ShopEase" className="h-14 w-auto" />
             </div>
             <h2 className="display mt-10 text-3xl leading-tight md:text-4xl">
               {mode === "login" ? "Welcome back to smarter shopping" : "Join thousands of happy shoppers"}
@@ -174,26 +165,6 @@ export function AuthView({ navigate, mode }: { navigate: Navigate; mode: "login"
               {mode === "login" ? "Sign In" : "Create Account"}
             </Button>
           </form>
-
-          {mode === "login" && (
-            <div className="mt-5 rounded-sm border border-dashed bg-muted/30 p-4">
-              <p className="text-xs font-semibold text-muted-foreground">Demo accounts (click to fill)</p>
-              <div className="mt-2 flex gap-2">
-                <Button type="button" variant="outline" size="sm" className="flex-1" onClick={() => fillDemo("admin")}>
-                  Admin
-                </Button>
-                <Button type="button" variant="outline" size="sm" className="flex-1" onClick={() => fillDemo("customer")}>
-                  Customer
-                </Button>
-              </div>
-              <p className="mt-2 text-[11px] text-muted-foreground">
-                Admin: admin@shopease.com / admin123
-              </p>
-              <p className="text-[11px] text-muted-foreground">
-                Customer: customer@shopease.com / customer123
-              </p>
-            </div>
-          )}
 
           <p className="mt-6 text-center text-sm text-muted-foreground">
             {mode === "login" ? "Don't have an account? " : "Already have an account? "}

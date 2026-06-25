@@ -42,8 +42,7 @@ export function AdminView({ navigate, params }: { navigate: Navigate; params: Re
         </span>
         <h1 className="display mt-6 text-3xl tracking-tight">Admin access required</h1>
         <p className="mt-2 text-muted-foreground">Sign in with an admin account to access this dashboard.</p>
-        <Button className="mt-6" onClick={() => navigate("login")}>Sign In as Admin</Button>
-        <p className="mt-3 text-xs text-muted-foreground">Demo: admin@shopease.com / admin123</p>
+        <Button className="mt-6" onClick={() => navigate("admin-login")}>Sign In as Admin</Button>
       </div>
     );
   }

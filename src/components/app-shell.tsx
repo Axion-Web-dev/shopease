@@ -11,6 +11,7 @@ import { ProductDetail } from "@/components/views/product-detail";
 import { CartView } from "@/components/views/cart";
 import { CheckoutView } from "@/components/views/checkout";
 import { AuthView } from "@/components/views/auth";
+import { AdminLoginView } from "@/components/views/admin-login";
 import { OrdersView } from "@/components/views/orders";
 import { OrderDetail } from "@/components/views/order-detail";
 import { AccountView } from "@/components/views/account";
@@ -32,6 +33,7 @@ function Router() {
         {(view === "login" || view === "register") && (
           <AuthView navigate={navigate} mode={view} />
         )}
+        {view === "admin-login" && <AdminLoginView navigate={navigate} />}
         {view === "orders" && <OrdersView navigate={navigate} />}
         {view === "order" && <OrderDetail navigate={navigate} params={params} />}
         {view === "account" && <AccountView navigate={navigate} />}

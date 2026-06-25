@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth";
+import { validateCsrfToken } from "@/lib/csrf";
 import { z } from "zod";
 
 const schema = z.object({
@@ -17,6 +18,7 @@ const schema = z.object({
   zip: z.string().min(2),
   paymentMethod: z.enum(["COD", "CARD"]),
   notes: z.string().optional(),
+  csrfToken: z.string(),
 });
 
 export async function GET(req: NextRequest) {
@@ -52,6 +54,12 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Invalid input", details: parsed.error.flatten() }, { status: 400 });
     }
     const data = parsed.data;
+    
+    // Validate CSRF token
+    const isValidCsrf = await validateCsrfToken(data.csrfToken);
+    if (!isValidCsrf) {
+      return NextResponse.json({ error: "Invalid CSRF token" }, { status: 403 });
+    }
 
     // Fetch products and validate stock
     const products = await db.product.findMany({

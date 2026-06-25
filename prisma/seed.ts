@@ -320,40 +320,24 @@ const categories = [
 async function main() {
   console.log("Seeding database...");
 
-  // Users
+  // Users - only create admin account (no demo customer)
   const adminPass = await hashPassword("admin123");
-  const customerPass = await hashPassword("customer123");
   const admin = await db.user.upsert({
     where: { email: "admin@shopease.com" },
     update: { password: adminPass, role: "ADMIN" },
     create: { email: "admin@shopease.com", name: "Store Admin", password: adminPass, role: "ADMIN" },
   });
-  const customer = await db.user.upsert({
-    where: { email: "customer@shopease.com" },
-    update: { password: customerPass },
-    create: {
-      email: "customer@shopease.com",
-      name: "Jamie Rivera",
-      password: customerPass,
-      role: "CUSTOMER",
-      phone: "+1 555 0142",
-      address: "24 Maple Avenue",
-      city: "Portland",
-      country: "USA",
-      zip: "97201",
-    },
-  });
-  console.log(`Users: admin=${admin.email}, customer=${customer.email}`);
+  console.log(`Admin account: ${admin.email}`);
 
-  // Categories
+  // Delete in correct order due to foreign key constraints
+  await db.orderItem.deleteMany({});
+  await db.order.deleteMany({});
+  await db.product.deleteMany({});
   await db.category.deleteMany({});
   for (const c of categories) {
     await db.category.create({ data: c });
   }
   console.log(`Categories: ${categories.length}`);
-
-  // Products
-  await db.product.deleteMany({});
   for (const p of products) {
     const cat = await db.category.findUnique({ where: { slug: p.category } });
     if (!cat) throw new Error(`Category not found: ${p.category}`);
@@ -369,7 +353,7 @@ async function main() {
   }
   console.log(`Products: ${products.length}`);
 
-  // Demo orders for the customer
+  // Demo orders for the admin
   await db.order.deleteMany({});
   const allProducts = await db.product.findMany();
   const sample = (n: number) => allProducts.slice(0, n);
@@ -380,14 +364,14 @@ async function main() {
     const order = await db.order.create({
       data: {
         orderNumber: `SE-${Date.now().toString().slice(-6)}${Math.floor(Math.random() * 90 + 10)}`,
-        userId: customer.id,
-        email: customer.email,
-        customerName: customer.name,
-        phone: customer.phone || "",
-        address: customer.address || "",
-        city: customer.city || "",
-        country: customer.country || "",
-        zip: customer.zip || "",
+        userId: admin.id,
+        email: admin.email,
+        customerName: admin.name,
+        phone: "",
+        address: "",
+        city: "",
+        country: "",
+        zip: "",
         status,
         subtotal,
         shipping,

@@ -72,8 +72,17 @@ export function useAdminCustomers() {
 export function useCreateOrder() {
   const qc = useQueryClient();
   return useMutation({
-    mutationFn: (body: any) =>
-      apiFetch<{ order: Order }>("/orders", { method: "POST", body: JSON.stringify(body) }),
+    mutationFn: async (body: any) => {
+      // Get CSRF token first
+      const csrfRes = await fetch('/api/auth/csrf');
+      const { token } = await csrfRes.json();
+      
+      // Include CSRF token in the order request
+      return apiFetch<{ order: Order }>("/orders", { 
+        method: "POST", 
+        body: JSON.stringify({ ...body, csrfToken: token }) 
+      });
+    },
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ["orders"] });
       qc.invalidateQueries({ queryKey: ["admin-stats"] });

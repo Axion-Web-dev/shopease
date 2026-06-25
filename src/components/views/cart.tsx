@@ -178,7 +178,7 @@ export function CartView({ navigate }: { navigate: Navigate }) {
               Proceed to Checkout <ArrowRight className="size-4" />
             </Button>
             <p className="mt-3 text-center text-[11px] uppercase tracking-luxe text-muted-foreground">
-              Secure checkout · Guest or account
+              Secure checkout · Account required
             </p>
           </div>
         </div>

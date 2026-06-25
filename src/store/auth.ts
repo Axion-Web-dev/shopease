@@ -30,9 +30,14 @@ export const useAuth = create<AuthState>((set, get) => ({
   login: async (email, password) => {
     set({ loading: true });
     try {
+      // Get CSRF token first
+      const csrfRes = await fetch('/api/auth/csrf');
+      const { token } = await csrfRes.json();
+      
+      // Include CSRF token in the login request
       const data = await apiFetch<{ user: User }>("/auth/login", {
         method: "POST",
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ email, password, csrfToken: token }),
       });
       set({ user: data.user, loading: false });
       return data.user;
@@ -44,9 +49,14 @@ export const useAuth = create<AuthState>((set, get) => ({
   register: async (name, email, password) => {
     set({ loading: true });
     try {
+      // Get CSRF token first
+      const csrfRes = await fetch('/api/auth/csrf');
+      const { token } = await csrfRes.json();
+      
+      // Include CSRF token in the register request
       const data = await apiFetch<{ user: User }>("/auth/register", {
         method: "POST",
-        body: JSON.stringify({ name, email, password }),
+        body: JSON.stringify({ name, email, password, csrfToken: token }),
       });
       set({ user: data.user, loading: false });
       return data.user;

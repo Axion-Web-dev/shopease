@@ -17,12 +17,14 @@ export function Header({ navigate, view }: { navigate: Navigate; view: View }) {
   const [search, setSearch] = useState("");
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const count = useCart((s) => s.count());
   const setOpen = useCart((s) => s.setOpen);
   const { user, logout } = useAuth();
-  const { categories } = useCategories();
+  const { data: categories } = useCategories();
 
   useEffect(() => {
+    setMounted(true);
     const onScroll = () => setScrolled(window.scrollY > 8);
     onScroll();
     window.addEventListener("scroll", onScroll);
@@ -56,8 +58,8 @@ export function Header({ navigate, view }: { navigate: Navigate; view: View }) {
             <SheetTitle className="sr-only">Navigation</SheetTitle>
             <div className="flex h-full flex-col">
               <div className="flex items-center justify-between border-b px-5 py-4">
-                <button onClick={() => { navigate("home"); setMobileOpen(false); }} className="font-display text-xl">
-                  ShopEase
+                <button onClick={() => { navigate("home"); setMobileOpen(false); }}>
+                  <img src="/loggo.png" alt="ShopEase" className="h-10 w-auto" />
                 </button>
                 <SheetClose asChild>
                   <Button variant="ghost" size="icon"><X className="size-5" /></Button>
@@ -73,7 +75,6 @@ export function Header({ navigate, view }: { navigate: Navigate; view: View }) {
                   </button>
                 ))}
                 {user && <button className="mt-4 rounded-sm px-3 py-2.5 text-left text-sm font-medium hover:bg-accent/10" onClick={() => { navigate("orders"); setMobileOpen(false); }}>My Orders</button>}
-                {user?.role === "ADMIN" && <button className="rounded-sm px-3 py-2.5 text-left text-sm font-medium hover:bg-accent/10" onClick={() => { navigate("admin"); setMobileOpen(false); }}>Admin Dashboard</button>}
               </nav>
             </div>
           </SheetContent>
@@ -81,7 +82,7 @@ export function Header({ navigate, view }: { navigate: Navigate; view: View }) {
 
         {/* Logo */}
         <button onClick={() => navigate("home")} className="shrink-0">
-          <span className="font-display text-2xl tracking-tight">ShopEase</span>
+          <img src="/loggo.png" alt="ShopEase" className="h-12 w-auto" />
         </button>
 
         {/* Desktop nav */}
@@ -93,8 +94,10 @@ export function Header({ navigate, view }: { navigate: Navigate; view: View }) {
             Shop
           </button>
           <DropdownMenu>
-            <DropdownMenuTrigger className="flex items-center gap-1 text-[13px] font-medium uppercase tracking-luxe text-foreground/80 transition-colors hover:text-accent">
-              Collections <ChevronDown className="size-3.5" />
+            <DropdownMenuTrigger asChild>
+              <button type="button" className="flex items-center gap-1 text-[13px] font-medium uppercase tracking-luxe text-foreground/80 transition-colors hover:text-accent">
+                Collections <ChevronDown className="size-3.5" />
+              </button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="start" className="w-56 rounded-sm border-border/60 p-1">
               {(categories || []).map((c) => (
@@ -107,7 +110,7 @@ export function Header({ navigate, view }: { navigate: Navigate; view: View }) {
         </nav>
 
         {/* Search */}
-        <form onSubmit={onSearch} className="ml-auto hidden flex-1 max-w-xs lg:flex">
+        <form onSubmit={onSearch} className="ml-auto hidden flex-1 max-w-xs md:flex">
           <div className="relative w-full">
             <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" strokeWidth={1.5} />
             <Input
@@ -146,14 +149,6 @@ export function Header({ navigate, view }: { navigate: Navigate; view: View }) {
                 <DropdownMenuItem className="rounded-sm" onClick={() => navigate("orders")}>
                   <Package className="mr-2 size-4" /> My Orders
                 </DropdownMenuItem>
-                {user.role === "ADMIN" && (
-                  <>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuItem className="rounded-sm" onClick={() => navigate("admin")}>
-                      <LayoutDashboard className="mr-2 size-4" /> Admin Dashboard
-                    </DropdownMenuItem>
-                  </>
-                )}
                 <DropdownMenuSeparator />
                 <DropdownMenuItem className="rounded-sm text-destructive focus:text-destructive" onClick={handleLogout}>
                   <LogOut className="mr-2 size-4" /> Sign out
@@ -169,7 +164,7 @@ export function Header({ navigate, view }: { navigate: Navigate; view: View }) {
           {/* Cart */}
           <Button variant="ghost" size="icon" className="relative rounded-full" onClick={() => setOpen(true)}>
             <ShoppingBag className="size-5" strokeWidth={1.5} />
-            {count > 0 && (
+            {mounted && count > 0 && (
               <span className="absolute -right-0.5 -top-0.5 grid size-4 place-items-center rounded-full bg-accent text-[10px] font-medium text-accent-foreground">
                 {count}
               </span>

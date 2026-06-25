@@ -2,7 +2,7 @@
 
 A clean, responsive, and professional e-commerce web store built for portfolio showcase. Features full-stack development with product browsing, cart, checkout flow, order tracking, and a complete admin dashboard.
 
-![ShopEase Home](shot-01-home.png)
+![ShopEase Home](shopease.png)
 
 ## Tech Stack
 
@@ -37,12 +37,11 @@ A clean, responsive, and professional e-commerce web store built for portfolio s
 - **Order Management** — View all orders, update status (Pending → Processing → Shipped → Completed / Cancelled)
 - **Customer Management** — View registered users with order history and total spent
 
-## Demo Accounts
+## Admin Access
 
-| Role | Email | Password |
-|------|-------|----------|
-| Admin | `admin@shopease.com` | `admin123` |
-| Customer | `customer@shopease.com` | `customer123` |
+Create an admin user through the registration flow or seed script. Access the admin dashboard at `/?view=admin-login`.
+
+**Note:** In production, ensure you change the default admin credentials and use strong passwords.
 
 ## Getting Started
 

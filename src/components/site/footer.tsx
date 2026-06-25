@@ -23,7 +23,7 @@ export function Footer({ navigate }: { navigate: Navigate }) {
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-5">
           <div className="lg:col-span-2">
             <button onClick={go("home")} className="flex items-center">
-              <span className="font-display text-3xl tracking-tight">ShopEase</span>
+              <img src="/loggo.png" alt="ShopEase" className="h-12 w-auto" />
             </button>
             <p className="mt-4 max-w-sm text-sm text-background/70">
               A modern destination for considered goods. Curated quality, fair prices,

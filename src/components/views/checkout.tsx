@@ -34,9 +34,22 @@ export function CheckoutView({ navigate }: { navigate: Navigate }) {
     );
   }
 
+  if (!user) {
+    return (
+      <div className="mx-auto flex max-w-7xl flex-col items-center px-4 py-24 text-center">
+        <h1 className="text-2xl font-bold">Authentication Required</h1>
+        <p className="mt-2 text-muted-foreground">Please sign in or create an account to checkout.</p>
+        <div className="mt-6 flex gap-3">
+          <Button onClick={() => navigate("login")}>Sign In</Button>
+          <Button variant="outline" onClick={() => navigate("register")}>Create Account</Button>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <CheckoutForm
-      key={user?.id || "guest"}
+      key={user.id}
       navigate={navigate}
       user={user}
       items={items}

@@ -1,9 +1,10 @@
 import { cookies } from "next/headers";
 import { db } from "@/lib/db";
+import { env } from "@/lib/env";
 import crypto from "crypto";
 
 const SESSION_COOKIE = "shopease_session";
-const SECRET = process.env.SESSION_SECRET || "shopease-dev-secret-change-me";
+const SECRET = env.SESSION_SECRET;
 
 /* ---------------- Password hashing (scrypt) ---------------- */
 
@@ -60,6 +61,7 @@ export async function setSession(userId: string, role: string) {
   store.set(SESSION_COOKIE, token, {
     httpOnly: true,
     sameSite: "lax",
+    secure: process.env.NODE_ENV === "production",
     path: "/",
     maxAge: 60 * 60 * 24 * 7, // 7 days
   });

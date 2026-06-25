@@ -20,6 +20,7 @@ export function HomeView({ navigate }: { navigate: Navigate }) {
         <div className="relative h-[78vh] min-h-[520px] w-full overflow-hidden">
           <img src="/hero.png" alt="ShopEase collection" className="size-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/15 to-black/25" />
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-black/30" />
           <div className="absolute inset-0 flex items-end">
             <div className="mx-auto w-full max-w-7xl px-4 pb-14 md:pb-20">
               <div className="max-w-xl text-white">
