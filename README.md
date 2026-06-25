@@ -1,6 +1,6 @@
 # ShopEase — Modern E-commerce Web Store
 
-A clean, responsive, and professional e-commerce web store built for portfolio showcase. Features full-stack development with product browsing, cart, checkout flow, order tracking, and a complete admin dashboard.
+A clean, responsive, and professional e-commerce web store. Features full-stack development with product browsing, cart, checkout flow, order tracking, and a complete admin dashboard.
 
 ![ShopEase Home](shopease.png)
 
