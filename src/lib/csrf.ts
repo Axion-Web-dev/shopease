@@ -2,7 +2,11 @@ import { cookies } from 'next/headers';
 import crypto from 'crypto';
 
 const CSRF_COOKIE_NAME = 'csrf_token';
-const CSRF_SECRET = process.env.SESSION_SECRET || 'default-secret-change-in-production';
+const CSRF_SECRET = process.env.SESSION_SECRET;
+
+if (!CSRF_SECRET) {
+  throw new Error('SESSION_SECRET environment variable is required for CSRF protection');
+}
 
 export async function generateCsrfToken(): Promise<string> {
   const token = crypto.randomBytes(32).toString('hex');

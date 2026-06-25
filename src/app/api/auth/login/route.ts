@@ -15,7 +15,11 @@ export async function POST(req: NextRequest) {
   // Handle CORS preflight
   if (req.method === 'OPTIONS') {
     const response = new NextResponse(null, { status: 200 });
-    response.headers.set('Access-Control-Allow-Origin', process.env.ALLOWED_ORIGINS || '*');
+    const allowedOrigins = process.env.ALLOWED_ORIGINS;
+    if (!allowedOrigins) {
+      return NextResponse.json({ error: 'ALLOWED_ORIGINS not configured' }, { status: 500 });
+    }
+    response.headers.set('Access-Control-Allow-Origin', allowedOrigins);
     response.headers.set('Access-Control-Allow-Methods', 'POST, OPTIONS');
     response.headers.set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     response.headers.set('Access-Control-Allow-Credentials', 'true');
@@ -58,7 +62,11 @@ export async function POST(req: NextRequest) {
     const response = NextResponse.json({
       user: { id: user.id, name: user.name, email: user.email, role: user.role },
     });
-    response.headers.set('Access-Control-Allow-Origin', process.env.ALLOWED_ORIGINS || '*');
+    const allowedOrigins = process.env.ALLOWED_ORIGINS;
+    if (!allowedOrigins) {
+      return NextResponse.json({ error: 'ALLOWED_ORIGINS not configured' }, { status: 500 });
+    }
+    response.headers.set('Access-Control-Allow-Origin', allowedOrigins);
     return response;
   } catch (e: any) {
     return NextResponse.json({ error: e.message || "Server error" }, { status: 500 });
