@@ -11,7 +11,7 @@ A clean, responsive, and professional e-commerce web store built for portfolio s
 | Framework | **Next.js 16** (App Router, Turbopack) |
 | Language | **TypeScript 5** |
 | Styling | **Tailwind CSS 4** + **shadcn/ui** (New York) |
-| Database | **Prisma ORM** with **SQLite** |
+| Database | **Prisma ORM** with **postgresql** |
 | State | **Zustand** (cart/auth) + **TanStack Query** (server state) |
 | Charts | **Recharts** |
 | Icons | **Lucide React** |
@@ -25,7 +25,7 @@ A clean, responsive, and professional e-commerce web store built for portfolio s
 - **Product Detail** — Image gallery, name, price, stock status, quantity selector, add to cart, related products
 - **Cart** — Slide-out drawer + full cart page with quantity update, remove, subtotal, coupon codes (`WELCOME10`, `SAVE20`)
 - **Checkout** — Customer details, shipping address, order summary, COD or test card payment, stock reduction on order
-- **Auth** — Login / Register with demo accounts
+- **Auth** — Login / Register 
 - **My Orders** — Order history with status filter
 - **Order Detail** — Tracking timeline, items, shipping info, payment
 - **Account** — Profile update with shipping address
@@ -63,8 +63,8 @@ Open `http://localhost:3000` in your browser.
 
 ## Business Rules Implemented
 
-- ✅ Users can add products to cart without login (cart persists in localStorage)
-- ✅ Checkout supports both guest and logged-in users
+- ✅ Users can add products to cart  login (cart persists in localStorage)
+- ✅ Checkout supports   logged-in users
 - ✅ Product stock reduces after successful order (transactional)
 - ✅ Admin can update order status
 - ✅ Out-of-stock products are not purchasable
@@ -103,24 +103,11 @@ prisma/
 └── seed.ts                # Demo data seeder
 ```
 
-## Screenshots
 
-| Page | Screenshot |
-|------|-----------|
-| Home | `shot-01-home.png` |
-| Shop | `shot-02-shop.png` |
-| Product Detail | `shot-03-product.png` |
-| Cart | `shot-04-cart.png` |
-| Login | `shot-05-login.png` |
-| Admin Dashboard | `shot-06-admin-dashboard.png` |
-| Admin Products | `shot-07-admin-products.png` |
-| Admin Orders | `shot-08-admin-orders.png` |
-| Admin Customers | `shot-09-admin-customers.png` |
-| Admin Categories | `shot-10-admin-categories.png` |
 
-## Demo Data
+##  Data
 
-20 sample products across 4 categories:
+20  products across 4 categories:
 - **Fashion** (5) — Denim jacket, overcoat, sneakers, t-shirt, chinos
 - **Electronics** (5) — Headphones, smart watch, bluetooth speaker, keyboard, charging pad
 - **Accessories** (5) — Leather backpack, sunglasses, watch, wallet, silk scarf
@@ -128,4 +115,4 @@ prisma/
 
 ---
 
-Built as a portfolio piece demonstrating full-stack development, database design, admin panel development, cart/checkout logic, and responsive UI/UX.
+     full-stack development, database design, admin panel development, cart/checkout logic, and responsive UI/UX.
