@@ -18,15 +18,11 @@ export function HomeView({ navigate }: { navigate: Navigate }) {
   const heroRef = useRef(null);
   const categoriesRef = useRef(null);
   const featuredRef = useRef(null);
-  const bannerRef = useRef(null);
-  const bestSellersRef = useRef(null);
   const testimonialsRef = useRef(null);
 
   const heroInView = useInView(heroRef, { once: true });
   const categoriesInView = useInView(categoriesRef, { once: true, margin: "-100px" });
   const featuredInView = useInView(featuredRef, { once: true, margin: "-100px" });
-  const bannerInView = useInView(bannerRef, { once: true, margin: "-100px" });
-  const bestSellersInView = useInView(bestSellersRef, { once: true, margin: "-100px" });
   const testimonialsInView = useInView(testimonialsRef, { once: true, margin: "-100px" });
 
   return (
@@ -225,11 +221,12 @@ export function HomeView({ navigate }: { navigate: Navigate }) {
       </section>
 
       {/* ============ Editorial split banner ============ */}
-      <section ref={bannerRef} className="mx-auto max-w-7xl px-4 py-20 md:py-28">
+      <section className="mx-auto max-w-7xl px-4 py-20 md:py-28">
         <motion.div
           className="grid items-stretch gap-0 overflow-hidden rounded-sm border md:grid-cols-2"
           initial={{ opacity: 0, y: 30 }}
-          animate={bannerInView ? { opacity: 1, y: 0 } : {}}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.6 }}
         >
           <div className="flex flex-col justify-center bg-foreground p-10 text-background md:p-16">
@@ -255,7 +252,8 @@ export function HomeView({ navigate }: { navigate: Navigate }) {
           <motion.div
             className="min-h-[300px] bg-secondary"
             initial={{ opacity: 0, scale: 1.05 }}
-            animate={bannerInView ? { opacity: 1, scale: 1 } : {}}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             <img
@@ -268,33 +266,44 @@ export function HomeView({ navigate }: { navigate: Navigate }) {
       </section>
 
       {/* ============ Best sellers ============ */}
-      {bestSellers && bestSellers.length > 0 && (
-        <section ref={bestSellersRef} className="mx-auto max-w-7xl px-4 pb-20 md:pb-28">
-          <motion.div
-            className="mb-10 flex items-end justify-between gap-4"
-            initial={{ opacity: 0, y: 30 }}
-            animate={bestSellersInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6 }}
-          >
-            <div>
-              <p className="text-[11px] uppercase tracking-luxe text-accent">Loved by many</p>
-              <h2 className="display mt-2 text-3xl md:text-4xl">Best sellers</h2>
-            </div>
-          </motion.div>
-          <div className="grid grid-cols-2 gap-x-4 gap-y-10 md:grid-cols-4 md:gap-x-6">
-            {bestSellers.map((p, i) => (
+      <section className="mx-auto max-w-7xl px-4 pb-20 md:pb-28">
+        <motion.div
+          className="mb-10 flex items-end justify-between gap-4"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.6 }}
+        >
+          <div>
+            <p className="text-[11px] uppercase tracking-luxe text-accent">Loved by many</p>
+            <h2 className="display mt-2 text-3xl md:text-4xl">Best sellers</h2>
+          </div>
+        </motion.div>
+        <div className="grid grid-cols-2 gap-x-4 gap-y-10 md:grid-cols-4 md:gap-x-6">
+          {bestSellers && bestSellers.length > 0 ? (
+            bestSellers.map((p, i) => (
               <motion.div
                 key={p.id}
                 initial={{ opacity: 0, y: 30 }}
-                animate={bestSellersInView ? { opacity: 1, y: 0 } : {}}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.5, delay: i * 0.1 }}
               >
                 <ProductCard product={p} navigate={navigate} />
               </motion.div>
-            ))}
-          </div>
-        </section>
-      )}
+            ))
+          ) : (
+            Array.from({ length: 4 }).map((_, i) => (
+              <div key={i}>
+                <Skeleton className="aspect-[4/5] rounded-sm" />
+                <Skeleton className="mt-3 h-3 w-16" />
+                <Skeleton className="mt-2 h-4 w-3/4" />
+                <Skeleton className="mt-1 h-4 w-20" />
+              </div>
+            ))
+          )}
+        </div>
+      </section>
 
       {/* ============ Testimonials ============ */}
       <section ref={testimonialsRef} className="border-t bg-secondary/40">
