@@ -17,6 +17,7 @@ import { OrderDetail } from "@/components/views/order-detail";
 import { AccountView } from "@/components/views/account";
 import { AdminView } from "@/components/views/admin/admin-view";
 import { Skeleton } from "@/components/ui/skeleton";
+import { motion, AnimatePresence } from "framer-motion";
 
 function Router() {
   const { view, params, navigate } = useRoute();
@@ -25,19 +26,29 @@ function Router() {
     <div className="flex min-h-screen flex-col">
       <Header navigate={navigate} view={view} />
       <main className="flex-1">
-        {view === "home" && <HomeView navigate={navigate} />}
-        {view === "shop" && <ShopView navigate={navigate} params={params} />}
-        {view === "product" && <ProductDetail navigate={navigate} params={params} />}
-        {view === "cart" && <CartView navigate={navigate} />}
-        {view === "checkout" && <CheckoutView navigate={navigate} />}
-        {(view === "login" || view === "register") && (
-          <AuthView navigate={navigate} mode={view} />
-        )}
-        {view === "admin-login" && <AdminLoginView navigate={navigate} />}
-        {view === "orders" && <OrdersView navigate={navigate} />}
-        {view === "order" && <OrderDetail navigate={navigate} params={params} />}
-        {view === "account" && <AccountView navigate={navigate} />}
-        {view === "admin" && <AdminView navigate={navigate} params={params} />}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={view}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3 }}
+          >
+            {view === "home" && <HomeView navigate={navigate} />}
+            {view === "shop" && <ShopView navigate={navigate} params={params} />}
+            {view === "product" && <ProductDetail navigate={navigate} params={params} />}
+            {view === "cart" && <CartView navigate={navigate} />}
+            {view === "checkout" && <CheckoutView navigate={navigate} />}
+            {(view === "login" || view === "register") && (
+              <AuthView navigate={navigate} mode={view} />
+            )}
+            {view === "admin-login" && <AdminLoginView navigate={navigate} />}
+            {view === "orders" && <OrdersView navigate={navigate} />}
+            {view === "order" && <OrderDetail navigate={navigate} params={params} />}
+            {view === "account" && <AccountView navigate={navigate} />}
+            {view === "admin" && <AdminView navigate={navigate} params={params} />}
+          </motion.div>
+        </AnimatePresence>
       </main>
       <Footer navigate={navigate} />
       <CartDrawer navigate={navigate} />
